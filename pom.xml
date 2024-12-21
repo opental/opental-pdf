@@ -1,0 +1,157 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.github.vebqa</groupId>
+	<artifactId>vebtal-pdf</artifactId>
+	<version>1.0.6-SNAPSHOT</version>
+
+	<name>Test Adaptation Layer for PDF documents</name>
+	<description>Provides access for testing PDF documents with api for REST or JUnit / AssertJ</description>
+
+	<packaging>jar</packaging>
+
+	<url>https://github.com/vebqa/vebtal-pdf</url>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/vebqa/vebtal-pdf</url>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/vebqa/vebtal-pdf/issues</url>
+	</issueManagement>
+
+	<developers>
+		<developer>
+			<name>Karsten Doerges</name>
+			<email>kdoerges@googlemail.com</email>
+			<url>https://github.com/kdoerges</url>
+		</developer>
+	</developers>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<modulename>opentalpdf</modulename>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<version.jersey>3.1.9</version.jersey>
+		<version.jetty>11.0.24</version.jetty>
+		<version.slf4j>2.0.16</version.slf4j>
+		<version.log4j>2.13.3</version.log4j>
+		<version.junit>4.13.2</version.junit>
+		<version.hamcrest>2.2</version.hamcrest>
+		<version.assertj>3.27.0</version.assertj>			
+	</properties>
+
+	<build>
+		<sourceDirectory>src/main/java</sourceDirectory>
+		<testSourceDirectory>src/test/java</testSourceDirectory>
+		<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.3.1</version>
+					<configuration>
+						<resources>
+							<resource>
+								<directory>src/main/resources</directory>
+							</resource>
+						</resources>
+					</configuration>
+				</plugin>		
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.13.0</version>
+					<configuration>
+						<source>21</source>
+						<target>21</target>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>eu.somatik.serviceloader-maven-plugin</groupId>
+					<artifactId>serviceloader-maven-plugin</artifactId>
+					<version>1.4.0</version>
+					<configuration>
+						<services>
+							<param>org.vebqa.vebtal.TestAdaptionPlugin</param>
+						</services>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>generate</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+		</plugins>
+	</build>
+
+	<!-- dependencies -->
+	<dependencies>
+		<dependency>
+			<groupId>com.github.vebqa</groupId>
+			<artifactId>opental-core</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>2.0.32</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox-tools</artifactId>
+			<version>2.0.32</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>preflight</artifactId>
+			<version>2.0.32</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.17.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${version.slf4j}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.17.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>${version.assertj}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest</artifactId>
+			<version>${version.hamcrest}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${version.junit}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>javax.activation-api</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+	</dependencies>
+</project>
