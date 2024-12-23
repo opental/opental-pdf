@@ -1,8 +1,9 @@
 module opental.pdf {
 	
+	requires opental.core;
+
 	requires org.slf4j;
 	requires org.hamcrest;
-	requires junit;
 	requires org.assertj.core;
 	requires org.apache.commons.configuration2;
 	requires org.apache.commons.codec;
@@ -16,8 +17,10 @@ module opental.pdf {
 	requires org.apache.pdfbox.tools;
 	requires org.apache.pdfbox.debugger;
 	requires preflight;
-
-	requires opental.core;
+	
+	opens org.vebqa.vebtal.pdf.commands;
+	
+	requires org.junit.jupiter.api;
 	
 	provides org.vebqa.vebtal.TestAdaptionPlugin with
 		org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
