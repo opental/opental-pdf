@@ -1,4 +1,4 @@
-package org.vebqa.vebtal.pdf.commands;
+package org.vebqa.vebtal.junit3.pdf.commands;
 
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.junit.Assert.assertThat;
@@ -7,35 +7,36 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.commands.Verifytitle;
 
-public class VerifysubjectTest {
-
-	@Rule
-	public final PDFDriver dut = new PDFDriver().setFilePath("./src/test/java/resource/SampleFile.pdf");
+public class VerifytitleTest {
 
 	@Rule
-	public final PDFDriver dut_ns = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum500.pdf");
+	public final PDFDriver dut = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum_3Pages.pdf");
+	
+	@Rule
+	public final PDFDriver dut_nt = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum500.pdf");
 
 	@Test
-	public void verifySubject() {
+	public void verifyTitle() {
 		// create command to test
-		Verifysubject cmd = new Verifysubject("verifySubject", "Test Document", "");
+		Verifytitle cmd = new Verifytitle("verifyTitle", "Test Title", "");
 		Response result = cmd.executeImpl(dut);
 		
 		// create a green result object
 		Response resultCheck = new Response();
 		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Successfully found subject: Test Document");
+		resultCheck.setMessage("Successfully found title: Test Title");
 		
 		// check
 		assertThat(resultCheck, samePropertyValuesAs(result));
 	}
 	
 	@Test
-	public void verifySubjectFailWithoutSubject() {
+	public void verifyTitleFailWithoutTitle() {
 		// create command to test
-		Verifysubject cmd = new Verifysubject("verifySubject", "Test", "");
-		Response result = cmd.executeImpl(dut_ns);
+		Verifytitle cmd = new Verifytitle("verifyTitle", "Uhm", "");
+		Response result = cmd.executeImpl(dut_nt);
 		
 		// create a green result object
 		Response resultCheck = new Response();
@@ -47,15 +48,15 @@ public class VerifysubjectTest {
 	}
 	
 	@Test
-	public void verifySubjectMismatch() {
+	public void verifyTitleMismatch() {
 		// create command to test
-		Verifysubject cmd = new Verifysubject("verifySubject", "Testing", "");
+		Verifytitle cmd = new Verifytitle("verifyTitle", "Uhm", "");
 		Response result = cmd.executeImpl(dut);
 		
 		// create a green result object
 		Response resultCheck = new Response();
 		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Expected subject: \"Testing\", but found: \"Test Document\"");
+		resultCheck.setMessage("Expected title was <Uhm> but found <Test Title>.");
 		
 		// check
 		assertThat(resultCheck, samePropertyValuesAs(result));

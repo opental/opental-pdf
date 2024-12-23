@@ -1,10 +1,11 @@
-package org.vebqa.vebtal.pdf;
+package org.vebqa.vebtal.junit3.pdf;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
-import org.junit.jupiter.api.Test;
+
+import org.vebqa.vebtal.pdf.PDFDriver;
 
 public class PDFDriverTest {
 
@@ -26,7 +27,7 @@ public class PDFDriverTest {
 		} catch (IOException ioe) {
 			assertTrue(ioe.getMessage().equals("Cannot load PDF!"));
 		} catch (Exception e) {
-			assertFalse("Expected IOException!", true);
+			assertFalse(true, "Expected IOException!");
 		}
 	}
 
@@ -37,8 +38,7 @@ public class PDFDriverTest {
 		} catch (IOException ioe) {
 			assertTrue(ioe.getMessage().equals("Cannot load PDF!"));
 		} catch (Exception e) {
-			assertFalse("Expected IOException!", true);
+			assertFalse(true, "Expected IOException!");
 		}
 	}
-
 }

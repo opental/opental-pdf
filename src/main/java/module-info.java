@@ -18,9 +18,7 @@ module opental.pdf {
 	requires org.apache.pdfbox.debugger;
 	requires preflight;
 	
-	opens org.vebqa.vebtal.pdf.commands;
-	
-	requires org.junit.jupiter.api;
+	opens org.vebqa.vebtal.junit3.pdf.commands;
 	
 	provides org.vebqa.vebtal.TestAdaptionPlugin with
 		org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;

@@ -1,4 +1,4 @@
-package org.vebqa.vebtal.pdf.asserts;
+package org.vebqa.vebtal.junit3.pdf.asserts;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -6,6 +6,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.asserts.VerifyTextByAreaAssert;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class VerifyTextByAreaAssertTest {

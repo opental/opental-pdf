@@ -1,4 +1,4 @@
-package org.vebqa.vebtal.pdf.commands;
+package org.vebqa.vebtal.junit3.pdf.commands;
 
 import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
 import static org.junit.Assert.assertThat;
@@ -7,6 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.commands.Verifynumberofpages;
 
 public class VerifynumberofpagesTest {
 

@@ -1,9 +1,10 @@
-package org.vebqa.vebtal.pdf.asserts;
+package org.vebqa.vebtal.junit3.pdf.asserts;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.asserts.VerifyTextAssert;
 
 public class VerifyTextAssertTest {
 

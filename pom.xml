@@ -46,7 +46,6 @@
 		<version.jetty>11.0.24</version.jetty>
 		<version.slf4j>2.0.16</version.slf4j>
 		<version.log4j>2.13.3</version.log4j>
-		<version.junit>4.13.2</version.junit>
 		<version.hamcrest>2.2</version.hamcrest>
 		<version.assertj>3.27.0</version.assertj>			
 	</properties>
@@ -178,7 +177,10 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.vintage</groupId>
+			<artifactId>junit-vintage-engine</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.activation</groupId>
