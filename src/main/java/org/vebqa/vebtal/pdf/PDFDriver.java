@@ -21,11 +21,10 @@ import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.hamcrest.Matcher;
-import org.junit.rules.ExternalResource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PDFDriver extends ExternalResource {
+public class PDFDriver {
 
 	public static final String ACTION_VALIDATE = "validate";
 	public static final String ACTION_CALCULATE = "calculate";
@@ -289,7 +288,6 @@ public class PDFDriver extends ExternalResource {
 	/**
 	 * initialize resource before testcase.
 	 */
-	@Override
 	protected void before() throws Throwable {
 		load(new File(pathToResource));
 	}
@@ -297,7 +295,6 @@ public class PDFDriver extends ExternalResource {
 	/**
 	 * Clean up resource after testcase.
 	 */
-	@Override
 	protected void after() {
 		try {
 			close();

@@ -1,12 +1,10 @@
 package org.vebqa.vebtal.pdf;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
-
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PDFDriverTest {
 
@@ -17,7 +15,7 @@ public class PDFDriverTest {
 		} catch (NoSuchFileException nsfe) {
 			assertTrue(true);
 		} catch (Exception e) {
-			assertFalse("Expected NoSuchFileException!", true);
+			assertFalse(true, "Expected NoSuchFileException!");
 		}
 	}
 
