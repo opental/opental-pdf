@@ -4,7 +4,9 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripperByArea;
@@ -64,7 +66,9 @@ public class Verifytextbyarea extends AbstractCommand {
 
 				InputStream inputStream = new ByteArrayInputStream(
 						driver.getContentStream());
-				PDDocument pdf = PDDocument.load(inputStream);
+				
+				PDDocument pdf = Loader.loadPDF(new RandomAccessReadBuffer(inputStream));
+						
 				PDPage page = pdf.getPage(area.getPage());
 				textStripper.extractRegions(page);
 				// get text from our area of interest
@@ -85,7 +89,7 @@ public class Verifytextbyarea extends AbstractCommand {
 				// We need to convert line breaks
 				areaText = areaText.replace("\r\n", "\\r\\n");
 				logger.info("CV Line Breaks: {}", areaText);
-				if (StringUtils.contains(areaText, this.value)) {
+				if (Strings.CS.contains(areaText, this.value)) {
 					tResp.setCode(Response.PASSED);
 					tResp.setMessage("Text found in given area.");
 				} else {

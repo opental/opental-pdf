@@ -1,21 +1,28 @@
-package org.vebqa.vebtal.junit3.pdf.commands;
+package org.opental.pdf.junit5.commands;
 
-import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Rule;
-import org.junit.Test;
+import java.io.IOException;
+
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PDFDriver;
 import org.vebqa.vebtal.pdf.commands.Verifynumberofpages;
 
 public class VerifynumberofpagesTest {
-
-	@Rule
-	public final PDFDriver dut = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum_3Pages.pdf");
-
+	
+    private static final Logger logger = LoggerFactory.getLogger(VerifynumberofpagesTest.class);
+	
 	@Test
 	public void verifyNumberOfPages() {
+		PDFDriver dut = null;
+		try {
+			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+		} catch (IOException e) {
+			logger.error("Could not load", e);
+		}
 		// create command to test
 		Verifynumberofpages cmd = new Verifynumberofpages("verifyNumberOfPages", "3", "");
 		Response result = cmd.executeImpl(dut);
@@ -26,11 +33,18 @@ public class VerifynumberofpagesTest {
 		resultCheck.setMessage("Document has expected number of pages: 3");
 
 		// check
-		assertThat(resultCheck, samePropertyValuesAs(result));
+		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
 	}
 	
 	@Test
 	public void verifyNumberOfPagesFailWithMismatch() {
+		PDFDriver dut = null;
+		try {
+			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+		} catch (IOException e) {
+			logger.error("Could not load", e);
+		}
+		
 		// create command to test
 		Verifynumberofpages cmd = new Verifynumberofpages("verifyNumberOfPages", "1", "");
 		Response result = cmd.executeImpl(dut);
@@ -41,7 +55,6 @@ public class VerifynumberofpagesTest {
 		resultCheck.setMessage("Expected number of pages: <1>, but found: <3>");
 
 		// check
-		assertThat(resultCheck, samePropertyValuesAs(result));
+		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
 	}
-
 }

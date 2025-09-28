@@ -3,7 +3,6 @@ package org.vebqa.vebtal.pdf.commands;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.pdfbox.preflight.PreflightDocument;
 import org.apache.pdfbox.preflight.ValidationResult;
 import org.apache.pdfbox.preflight.ValidationResult.ValidationError;
 import org.apache.pdfbox.preflight.parser.PreflightParser;
@@ -26,10 +25,7 @@ public class Validate extends AbstractCommand {
 		ValidationResult result = null;
 		
 		try {
-			PreflightParser parser = new PreflightParser(new File(this.target));
-			parser.parse();
-			PreflightDocument doc = parser.getPreflightDocument();
-			result = doc.getResult();
+			result = PreflightParser.validate(new File(this.target));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

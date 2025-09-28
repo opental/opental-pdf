@@ -1,17 +1,14 @@
-package org.vebqa.vebtal.junit3.pdf.commands;
+package org.opental.pdf.junit5.commands;
 
-import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PDFDriver;
 import org.vebqa.vebtal.pdf.commands.Close;
 
 public class CloseTest {
 
-	@Rule
 	public final PDFDriver dut = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum_3Pages.pdf");
 
 	@Test
@@ -26,7 +23,6 @@ public class CloseTest {
 		resultCheck.setMessage("Successfully removes SUT from memory.");
 
 		// check
-		assertThat(resultCheck, samePropertyValuesAs(result));
+		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
 	}
-
 }

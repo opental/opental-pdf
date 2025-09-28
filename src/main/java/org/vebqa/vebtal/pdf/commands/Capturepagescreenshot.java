@@ -5,6 +5,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.encryption.InvalidPasswordException;
 import org.apache.pdfbox.rendering.ImageType;
@@ -43,7 +45,7 @@ public class Capturepagescreenshot extends AbstractCommand {
 
 		InputStream inputStream = new ByteArrayInputStream(driver.getContentStream());
 		try {
-			PDDocument pdf = PDDocument.load(inputStream);
+			PDDocument pdf = Loader.loadPDF(new RandomAccessReadBuffer(inputStream));
 			PDFRenderer pdfRenderer = new PDFRenderer(pdf);
 			BufferedImage bim = pdfRenderer.renderImageWithDPI(page, 300, ImageType.RGB);
 			ImageIOUtil.writeImage(bim, value, 300);

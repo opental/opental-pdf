@@ -7,7 +7,9 @@ import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
+import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.cos.COSName;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageTree;
@@ -51,7 +53,7 @@ public class Extractimages extends AbstractCommand {
 		try {
 			InputStream inputStream = new ByteArrayInputStream(
 					driver.getContentStream());
-			PDDocument pdf = PDDocument.load(inputStream);
+			PDDocument pdf = Loader.loadPDF(new RandomAccessReadBuffer(inputStream));
 			PDPageTree list = pdf.getPages();
 			int pageCount = 0;
 			for (PDPage page : list) {

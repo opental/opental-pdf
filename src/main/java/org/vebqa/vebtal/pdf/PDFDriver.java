@@ -12,6 +12,8 @@ import java.nio.file.Paths;
 import java.util.Calendar;
 import java.util.List;
 
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentCatalog;
 import org.apache.pdfbox.pdmodel.interactive.action.PDActionJavaScript;
@@ -20,7 +22,6 @@ import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.hamcrest.Matcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -93,7 +94,7 @@ public class PDFDriver {
 		// - Document Information
 
 		try (InputStream inputStream = new ByteArrayInputStream(content)) {
-			this.document = PDDocument.load(inputStream);
+			this.document = Loader.loadPDF(new RandomAccessReadBuffer(inputStream));
 			this.text = new PDFTextStripper().getText(this.document);
 			this.pathToResource = name;
 			this.numberOfPages = this.document.getNumberOfPages();
@@ -154,10 +155,6 @@ public class PDFDriver {
 		return result.toByteArray();
 	}
 
-	public Matcher<PDFDriver> containsText(String text) {
-		return new ContainsText(text);
-	}
-
 	public byte[] getContentStream() {
 		return this.content;
 	}
@@ -168,8 +165,8 @@ public class PDFDriver {
 		List<PDField> fields = acroForm.getFields();
 		for (PDField field : fields) {
 			if (field.getPartialName().contentEquals(aName)) {
-				PDFormFieldAdditionalActions actions = field.getActions();
-				PDActionJavaScript js = (PDActionJavaScript) actions.getV();
+				// PDFormFieldAdditionalActions actions = field.getActions();
+				// PDActionJavaScript js = (PDActionJavaScript) actions.getV();
 				return field.getValueAsString();
 			}
 		}

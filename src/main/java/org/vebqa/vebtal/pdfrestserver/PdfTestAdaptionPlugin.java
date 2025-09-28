@@ -144,7 +144,7 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 		Platform.runLater(() -> clData.get(clData.size() - 1).setLogInfo(aResult));
 		Platform.runLater(() -> clData.get(clData.size() - 1).setResult(success));
 
-		commandList.refresh();
+		Platform.runLater(() -> commandList.refresh());
 		Platform.runLater(() -> commandList.scrollTo(clData.size() - 1));
 	}
 

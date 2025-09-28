@@ -4,9 +4,10 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.hamcrest.Matcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.annotations.Keyword;
@@ -39,44 +40,50 @@ public class Verifytext extends AbstractCommand {
 		PDFDriver driver = (PDFDriver)aDocument;
 
 		Response tResp = new Response();
+		
+		if (!driver.isLoaded()) {
+			tResp.setCode(Response.FAILED);
+			tResp.setMessage("No SUT loaded yet. Cannot test against null.");
+			return tResp;
+		}
 
-		if (target == null || target.contentEquals("")) {
-			Matcher<PDFDriver> matcher = driver.containsText(value);
-
-			if (!driver.isLoaded()) {
-				tResp.setCode(Response.FAILED);
-				tResp.setMessage("No SUT loaded yet. Cannot test against null.");
-			} else if (matcher.matches(driver)) {
-				tResp.setCode(Response.PASSED);
-				tResp.setMessage("Successfully found text: " + value);
-			} else {
-				tResp.setCode(Response.FAILED);
-				tResp.setMessage("Cannot find text: " + value);
-			}
-		} else {
+		int testPage = -1;
+		
+		if (target != null && !target.contentEquals("")) {
 			// resolve target
 			String[] token = target.split("=");
-			// token[0] ist page
-			String pageText = null;
-			try {
-				PDFTextStripper stripper = new PDFTextStripper();
-				stripper.setStartPage(Integer.parseInt(token[1]));
-				stripper.setEndPage(Integer.parseInt(token[1]));
-				
-				InputStream inputStream = new ByteArrayInputStream(driver.getContentStream());
-				PDDocument pdf = PDDocument.load(inputStream);
-				pageText = stripper.getText(pdf);
-			} catch (IOException e) {
-				logger.error("Error while stripping text from pdf document!", e);
-			}
-			if (pageText != null && pageText.contains(value)) {
-				tResp.setCode(Response.PASSED);
-				tResp.setMessage("Expected text <" + value + "> found in page: " + token[1]);
-			} else {
-				tResp.setCode(Response.FAILED);
-				tResp.setMessage("Did not find expected text <" + value + "> in page: " + token[1]);
-			}
+			testPage = Integer.parseInt(token[1]);
 		}
+		String pageText = null;
+		try {
+			InputStream inputStream = new ByteArrayInputStream(driver.getContentStream());
+			PDDocument pdf = Loader.loadPDF(new RandomAccessReadBuffer(inputStream));
+			int countPages = pdf.getNumberOfPages();
+			logger.info("successfully loaded {} pages");
+			PDFTextStripper stripper = new PDFTextStripper();
+			if (testPage > 0) {
+				if (countPages < testPage) {
+					tResp.setCode(Response.FAILED);
+					tResp.setMessage("page to test (" + testPage + ") is higher than number of pages ("+ countPages +")");
+					return tResp;
+				}
+			}
+			if (testPage > 0) {
+				stripper.setStartPage(testPage);
+				stripper.setEndPage(testPage);
+			}
+			pageText = stripper.getText(pdf);
+		} catch (IOException e) {
+			logger.error("Error while stripping text from pdf document!", e);
+		}
+		if (pageText != null && pageText.contains(value)) {
+			tResp.setCode(Response.PASSED);
+			tResp.setMessage("Expected text <" + value + "> found");
+		} else {
+			tResp.setCode(Response.FAILED);
+			tResp.setMessage("Did not find expected text <" + value + ">");
+		}
+		
 		return tResp;
 	}
 }

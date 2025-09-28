@@ -42,12 +42,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<modulename>opentalpdf</modulename>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<version.jersey>3.1.9</version.jersey>
-		<version.jetty>11.0.24</version.jetty>
-		<version.slf4j>2.0.16</version.slf4j>
-		<version.log4j>2.13.3</version.log4j>
-		<version.hamcrest>2.2</version.hamcrest>
-		<version.assertj>3.27.0</version.assertj>			
+		<version.slf4j>2.0.17</version.slf4j>
+		<version.pdfbox>3.0.5</version.pdfbox>
 	</properties>
 
 	<build>
@@ -70,10 +66,10 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.13.0</version>
+					<version>3.14.1</version>
 					<configuration>
-						<source>17</source>
-						<target>17</target>
+						<source>21</source>
+						<target>21</target>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -93,15 +89,110 @@
 						</execution>
 					</executions>
 				</plugin>
-		</plugins>
+				<plugin>
+          			<groupId>org.apache.maven.plugins</groupId>
+          			<artifactId>maven-surefire-plugin</artifactId>
+          			<version>3.5.4</version>
+          			<configuration>
+                        <useModulePath>false</useModulePath>
+                     </configuration>
+        		</plugin>
+			</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>app</id>
+			<build>
+		<plugins>
+			<plugin>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-maven-plugin</artifactId>
+				<version>0.0.8</version>
+				<configuration>
+					<mainClass>org.vebqa.vebtal.gui.RoboManager</mainClass>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.8.1</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/dist</outputDirectory>
+							<overWriteReleases>true</overWriteReleases>
+							<overWriteSnapshots>true</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.6.1</version>
+				<configuration>
+					<createDependencyReducedPom>true</createDependencyReducedPom>
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+							<excludes>
+								<exclude>META-INF/*.SF</exclude>
+								<exclude>META-INF/*.DSA</exclude>
+								<exclude>META-INF/*.RSA</exclude>
+							</excludes>
+						</filter>
+					</filters>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>org.vebqa.vebtal.gui.RoboManager</mainClass>
+								</transformer>
+								<transformer
+									implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/cxf/bus-extensions.txt</resource>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.cxf</groupId>
+						<artifactId>cxf-buildtools</artifactId>
+						<version>2.2.12</version>
+						<type>jar</type>
+						<scope>compile</scope>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>			
+			</build>
+		</profile>
+	</profiles>
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.junit</groupId>
 				<artifactId>junit-bom</artifactId>
-				<version>5.11.4</version>
+				<version>5.13.4</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -112,27 +203,32 @@
 		<dependency>
 			<groupId>com.github.vebqa</groupId>
 			<artifactId>opental-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.8.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox</artifactId>
-			<version>2.0.32</version>
+			<version>${version.pdfbox}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>pdfbox-tools</artifactId>
-			<version>2.0.32</version>
+			<version>${version.pdfbox}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox-io</artifactId>
+			<version>${version.pdfbox}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.pdfbox</groupId>
 			<artifactId>preflight</artifactId>
-			<version>2.0.32</version>
+			<version>${version.pdfbox}</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.17.1</version>
+			<version>1.19.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
@@ -142,7 +238,7 @@
 		    <dependency>
       			<groupId>commons-logging</groupId>
       			<artifactId>commons-logging</artifactId>
-      			<version>1.3.2</version>
+      			<version>1.3.5</version>
       				<exclusions>
         				<exclusion>
           					<groupId>logkit</groupId>
@@ -157,30 +253,21 @@
     	<dependency>
     		<groupId>ch.qos.logback</groupId>
     		<artifactId>logback-classic</artifactId>
-    		<version>1.5.14</version>
+    		<version>1.5.18</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.17.0</version>
+			<version>3.19.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.assertj</groupId>
 			<artifactId>assertj-core</artifactId>
-			<version>${version.assertj}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest</artifactId>
-			<version>${version.hamcrest}</version>
+			<version>3.27.6</version>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.vintage</groupId>
-			<artifactId>junit-vintage-engine</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>javax.activation</groupId>

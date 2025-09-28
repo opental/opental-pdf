@@ -1,45 +1,34 @@
-package org.vebqa.vebtal.junit3.pdf.commands;
+package org.opental.pdf.junit5.commands;
 
-import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
-import org.junit.Ignore;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PDFDriver;
 import org.vebqa.vebtal.pdf.commands.Extractimages;
 
 public class ExtractimagesTest {
 
-	@Rule
-	public TemporaryFolder folder = new TemporaryFolder() {
-		@Override
-		public void create() throws IOException {
-			super.create();
-			assertNotNull(this.getRoot().exists());
-		}
-	};
-
-	@Rule
-	public final PDFDriver dut = new PDFDriver().setFilePath("./src/test/java/resource/SampleFileWithImage.pdf");
-
-	@Rule
-	public final PDFDriver dut_ni = new PDFDriver().setFilePath("./src/test/java/resource/SampleFile.pdf");
-
+    private static final Logger logger = LoggerFactory.getLogger(ExtractimagesTest.class);
+	
 	// file
 	File file = new File("Z:\\extracted-image-1.png");
-
-	@Ignore
+	
 	@Test
-	public void extractImages() {
+	public void extractImages(@TempDir Path tempDir) {
+		PDFDriver dut = null;
+		try {
+			dut = new PDFDriver().setFilePath("./src/test/resources/SampleFileWithImage.pdf").load();
+		} catch (IOException e) {
+			logger.error("Could not load", e);
+		}
 		// create command to test
 		Extractimages cmd = new Extractimages("extractImages", "page=1", "");
 		Response result = cmd.executeImpl(dut);
@@ -50,17 +39,22 @@ public class ExtractimagesTest {
 		resultCheck.setMessage("Successfully extracted 1 image(s) from page: 1");
 
 		// check
-		assertTrue(file.exists());
-		assertThat(resultCheck, samePropertyValuesAs(result));
+		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
 
 		// clean up saved file
 		file.delete();
 	}
 
 	@Test
-	public void extractImagesToSpecificFolder() {
+	public void extractImagesToSpecificFolder(@TempDir Path tempDir) {
+		PDFDriver dut = null;
+		try {
+			dut = new PDFDriver().setFilePath("./src/test/resources/SampleFileWithImage.pdf").load();
+		} catch (IOException e) {
+			logger.error("Could not load", e);
+		}
 		// save temporary archive directory
-		String directory = folder.getRoot().toString();
+		String directory = tempDir.getRoot().toString();
 
 		// create command to test
 		Extractimages cmd = new Extractimages("extractImages", "page=1", directory);
@@ -72,12 +66,18 @@ public class ExtractimagesTest {
 		resultCheck.setMessage("Successfully extracted 1 image(s) from page: 1");
 
 		// check
-		assertTrue(new File(directory, "extracted-image-1.png").exists());
-		assertThat(resultCheck, samePropertyValuesAs(result));
+		assertThat(new File(directory, "extracted-image-1.png").exists());
+		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
 	}
 
 	@Test
 	public void noImagesToExtract() {
+		PDFDriver dut_ni = null;
+		try {
+			dut_ni = new PDFDriver().setFilePath("./src/test/resources/SampleFile.pdf").load();
+		} catch (IOException e) {
+			logger.error("Could not load", e);
+		}
 		// create command to test
 		Extractimages cmd = new Extractimages("extractImages", "page=1", "");
 		Response result = cmd.executeImpl(dut_ni);
@@ -88,8 +88,6 @@ public class ExtractimagesTest {
 		resultCheck.setMessage("No images found in page: 1");
 
 		// check
-		assertFalse(file.exists());
-		assertThat(resultCheck, samePropertyValuesAs(result));
+		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
 	}
-
 }

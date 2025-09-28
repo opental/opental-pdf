@@ -1,21 +1,30 @@
-package org.vebqa.vebtal.junit3.pdf.commands;
+package org.opental.pdf.junit5.commands;
 
-import static org.hamcrest.beans.SamePropertyValuesAs.samePropertyValuesAs;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import org.junit.Rule;
-import org.junit.Test;
+import java.io.IOException;
+
+import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PDFDriver;
 import org.vebqa.vebtal.pdf.commands.Verifycreationdate;
 
 public class VerifycreationdateTest {
 
-	@Rule
-	public final PDFDriver dut = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum_3Pages.pdf");
-
+	private static final Logger logger = LoggerFactory.getLogger(VerifycreationdateTest.class);
+	
 	@Test
 	public void verifyCreationDate() {
+
+		PDFDriver dut = null;
+		try {
+			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+		} catch (IOException e) {
+			logger.error("Could not load", e);
+		}
+		
 		// create command to test
 		Verifycreationdate cmd = new Verifycreationdate("verifyCreationDate", "2019-03-05-16-36-26", "");
 		Response result = cmd.executeImpl(dut);
@@ -26,11 +35,19 @@ public class VerifycreationdateTest {
 		resultCheck.setMessage("Creation Date successfully matched!");
 
 		// check
-		assertThat(resultCheck, samePropertyValuesAs(result));
+		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
 	}
 
 	@Test
 	public void verifyCreationDateFailWithIncorrectDateFormat() {
+
+		PDFDriver dut = null;
+		try {
+			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+		} catch (IOException e) {
+			logger.error("Could not load", e);
+		}
+		
 		// create command to test
 		Verifycreationdate cmd = new Verifycreationdate("verifyCreationDate", "2019-03-05 16-36-26", "");
 		Response result = cmd.executeImpl(dut);
@@ -41,11 +58,19 @@ public class VerifycreationdateTest {
 		resultCheck.setMessage("Cannot parse data: 2019-03-05 16-36-26");
 
 		// check
-		assertThat(resultCheck, samePropertyValuesAs(result));
+		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
 	}
 
 	@Test
 	public void verifyCreationDateFailWithMismatch() {
+		
+		PDFDriver dut = null;
+		try {
+			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+		} catch (IOException e) {
+			logger.error("Could not load", e);
+		}
+		
 		// create command to test
 		Verifycreationdate cmd = new Verifycreationdate("verifyCreationDate", "2018-03-05-16-36-26", "");
 		Response result = cmd.executeImpl(dut);
@@ -56,7 +81,6 @@ public class VerifycreationdateTest {
 		resultCheck.setMessage("Expected creation date: <2018-03-05-16-36-26>, but found: <2019-03-05-16-36-26>");
 
 		// check
-		assertThat(resultCheck, samePropertyValuesAs(result));
+		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
 	}
-
 }
