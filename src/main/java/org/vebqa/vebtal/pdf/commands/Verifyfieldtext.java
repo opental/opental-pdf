@@ -36,12 +36,17 @@ public class Verifyfieldtext extends AbstractCommand {
 		}		
 		
 		String tValue = pdfDriver.getValueByFieldName(name);
+		if (tValue == null)  {
+			tResp.setCode(Response.FAILED);
+			tResp.setMessage("Field " + name + " not found");
+			return tResp;
+		}
 		if (tValue != null && tValue.contentEquals(this.value)) {
 			tResp.setCode(Response.PASSED);
 			tResp.setMessage("value of field matches given text: " + this.value);
 		} else {
 			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Field should be " + this.value + ", but is: " + value);
+			tResp.setMessage("Field should be " + this.value + ", but is: " + tValue);
 		}
 		
 		return tResp;

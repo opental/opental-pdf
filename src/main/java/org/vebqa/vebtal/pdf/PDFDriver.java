@@ -159,9 +159,17 @@ public class PDFDriver {
 		return this.content;
 	}
 
+	/**
+	 * Return value or null if not available
+	 * @param aName
+	 * @return
+	 */
 	public String getValueByFieldName(String aName) {
 		PDDocumentCatalog docCatalog = this.document.getDocumentCatalog();
 		PDAcroForm acroForm = docCatalog.getAcroForm();
+		if (acroForm == null) {
+			return null;
+		}
 		List<PDField> fields = acroForm.getFields();
 		for (PDField field : fields) {
 			if (field.getPartialName().contentEquals(aName)) {

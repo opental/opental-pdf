@@ -30,22 +30,38 @@ public class Showformfields extends AbstractCommand {
 
 		Response tResp = new Response();
 
+		String output = "";
 		try {
-			String output = getFieldsInformation(pdfDriver.getDocument());
-			tResp.setCode(Response.PASSED);
-			tResp.setMessage(output);
+			output = getFieldsInformation(pdfDriver.getDocument());
 		} catch (IOException e) {
 			tResp.setCode(Response.FAILED);
 			tResp.setMessage(e.getMessage());
 		}
 
+		if (output == null) {
+			tResp.setCode(Response.FAILED);
+			tResp.setMessage("Document contains no form field(s)");
+		} else {
+			tResp.setCode(Response.PASSED);
+			tResp.setMessage(output);
+		}
+		
 		return tResp;
 	}
 
+	/**
+	 * Return some informations about existing fields or null if no field is available
+	 * @param pdfDocument
+	 * @return
+	 * @throws IOException
+	 */
 	public String getFieldsInformation(PDDocument pdfDocument) throws IOException {
 
 		PDDocumentCatalog docCatalog = pdfDocument.getDocumentCatalog();
 		PDAcroForm acroForm = docCatalog.getAcroForm();
+		if (acroForm == null) {
+			return null;
+		}
 		List<PDField> fields = acroForm.getFields();
 
 		StringBuilder output = new StringBuilder();
