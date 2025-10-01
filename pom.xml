@@ -2,14 +2,14 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.github.vebqa</groupId>
-	<artifactId>vebtal-pdf</artifactId>
-	<version>1.0.6-SNAPSHOT</version>
-
-	<name>Test Adaptation Layer for PDF documents</name>
-	<description>Provides access for testing PDF documents with api for REST or JUnit / AssertJ</description>
+	<groupId>com.github.opental</groupId>
+	<artifactId>opental-pdf</artifactId>
+	<version>0.8.0-SNAPSHOT</version>
 
 	<packaging>jar</packaging>
+	
+	<name>Test Adaptation Layer for PDF documents</name>
+	<description>Provides access for testing PDF documents with api for REST or JUnit / AssertJ</description>
 
 	<url>https://github.com/vebqa/vebtal-pdf</url>
 
@@ -46,11 +46,100 @@
 		<version.pdfbox>3.0.5</version.pdfbox>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>5.14.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.github.vebqa</groupId>
+			<artifactId>opental-core</artifactId>
+			<version>0.8.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>${version.pdfbox}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox-tools</artifactId>
+			<version>${version.pdfbox}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox-io</artifactId>
+			<version>${version.pdfbox}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>preflight</artifactId>
+			<version>${version.pdfbox}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.19.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${version.slf4j}</version>
+		</dependency>
+		<dependency>
+      	    <groupId>commons-logging</groupId>
+      		<artifactId>commons-logging</artifactId>
+      		<version>1.3.5</version>
+      		<exclusions>
+        		<exclusion>
+          			<groupId>logkit</groupId>
+          			<artifactId>logkit</artifactId>
+        		</exclusion>
+        		<exclusion>
+          			<groupId>avalon-framework</groupId>
+          			<artifactId>avalon-framework</artifactId>
+        		</exclusion>
+      		</exclusions>
+        </dependency>
+    	<dependency>
+    		<groupId>ch.qos.logback</groupId>
+    		<artifactId>logback-classic</artifactId>
+    		<version>1.5.18</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.19.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+			<version>3.27.6</version>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.activation</groupId>
+			<artifactId>javax.activation-api</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+	</dependencies>
+	
 	<build>
 		<sourceDirectory>src/main/java</sourceDirectory>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<plugins>
-		<!--
+			<!--
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
@@ -186,93 +275,4 @@
 			</build>
 		</profile>
 	</profiles>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.junit</groupId>
-				<artifactId>junit-bom</artifactId>
-				<version>5.13.4</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-	<!-- dependencies -->
-	<dependencies>
-		<dependency>
-			<groupId>com.github.vebqa</groupId>
-			<artifactId>opental-core</artifactId>
-			<version>0.8.0-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>pdfbox</artifactId>
-			<version>${version.pdfbox}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>pdfbox-tools</artifactId>
-			<version>${version.pdfbox}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>pdfbox-io</artifactId>
-			<version>${version.pdfbox}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.pdfbox</groupId>
-			<artifactId>preflight</artifactId>
-			<version>${version.pdfbox}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-codec</groupId>
-			<artifactId>commons-codec</artifactId>
-			<version>1.19.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${version.slf4j}</version>
-		</dependency>
-		    <dependency>
-      			<groupId>commons-logging</groupId>
-      			<artifactId>commons-logging</artifactId>
-      			<version>1.3.5</version>
-      				<exclusions>
-        				<exclusion>
-          					<groupId>logkit</groupId>
-          					<artifactId>logkit</artifactId>
-        				</exclusion>
-        				<exclusion>
-          					<groupId>avalon-framework</groupId>
-          					<artifactId>avalon-framework</artifactId>
-        				</exclusion>
-      				</exclusions>
-    		</dependency>
-    	<dependency>
-    		<groupId>ch.qos.logback</groupId>
-    		<artifactId>logback-classic</artifactId>
-    		<version>1.5.18</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.19.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.assertj</groupId>
-			<artifactId>assertj-core</artifactId>
-			<version>3.27.6</version>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>javax.activation</groupId>
-			<artifactId>javax.activation-api</artifactId>
-			<version>1.2.0</version>
-		</dependency>
-	</dependencies>
 </project>
