@@ -26,13 +26,13 @@ public class Verifycreationdate extends AbstractCommand {
 
 		Response tResp = new Response();
 
-		if (driver.creationDate == null) {
+		if (driver.getCreationDate() == null) {
 			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Document does not have a creation date. Attribute is null!");
 			return tResp;
 		}
 		
-		Calendar created = driver.creationDate;
+		Calendar created = driver.getCreationDate();
 		
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 	    Date date = null; 

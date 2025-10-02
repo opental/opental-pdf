@@ -32,7 +32,6 @@ public class Open extends AbstractCommand {
 		boolean successfullyLoaded = false;
 		
 		try {
-			// CurrentDocument.getInstance().setDoc(new PDF(new File(this.target)));
 			driver.load(new File(this.target));
 			successfullyLoaded = true;
 		} catch (NoSuchFileException e) {
@@ -51,7 +50,7 @@ public class Open extends AbstractCommand {
 		} else if (successfullyLoaded) {
 			tResp.setCode(Response.PASSED);
 			tResp.setMessage("SUT file successfully read.");
-			logger.info("PDF successfully opend with {} Pages. ", driver.numberOfPages);
+			logger.info("PDF successfully opend with {} Pages. ", driver.getNumberOfPages());
 		}
 		return tResp;
 	}

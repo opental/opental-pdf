@@ -21,18 +21,18 @@ public class Verifysubject extends AbstractCommand {
 		
 		Response tResp = new Response();
 
-		if (driver.subject == null) {
+		if (driver.getSubject() == null) {
 			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Document does not have a title. Attribute is null!");
 			return tResp;
 		}
 		
-		if (driver.subject.contains(target)) {
+		if (driver.getSubject().contains(target)) {
 			tResp.setCode(Response.PASSED);
 			tResp.setMessage("Successfully found subject: " + target);
 		} else {
 			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Expected subject: \"" + target + "\", but found: \"" + driver.subject + "\"");
+			tResp.setMessage("Expected subject: \"" + target + "\", but found: \"" + driver.getSubject() + "\"");
 		}
 		return tResp;
 	}

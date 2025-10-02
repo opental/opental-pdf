@@ -22,18 +22,18 @@ public class Verifytitle extends AbstractCommand {
 		
 		Response tResp = new Response();
 
-		if (driver.title == null) {
+		if (driver.getTitle() == null) {
 			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Document does not have a title. Attribute is null!");
 			return tResp;
 		}
 		
-		if (driver.title.contains(this.target)) {
+		if (driver.getTitle().contains(this.target)) {
 			tResp.setCode(Response.PASSED);
 			tResp.setMessage("Successfully found title: " + this.target);
 		} else {
 			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Expected title was <" + this.target + "> but found <" + driver.title + ">.");
+			tResp.setMessage("Expected title was <" + this.target + "> but found <" + driver.getTitle() + ">.");
 		}
 		return tResp;
 	}

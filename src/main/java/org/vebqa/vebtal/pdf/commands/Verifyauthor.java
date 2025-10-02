@@ -21,18 +21,18 @@ public class Verifyauthor extends AbstractCommand {
 
 		Response tResp = new Response();
 
-		if (driver.author == null) {
+		if (driver.getAuthor() == null) {
 			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Document does not have author name. Attribute is null!");
 			return tResp;
 		}
 
-		if (driver.author.contains(target)) {
+		if (driver.getAuthor().contains(target)) {
 			tResp.setCode(Response.PASSED);
 			tResp.setMessage("Successfully found author: " + target);
 		} else {
 			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Expected author: \"" + target + "\", but found: \"" + driver.author + "\"");
+			tResp.setMessage("Expected author: \"" + target + "\", but found: \"" + driver.getAuthor() + "\"");
 		}
 		return tResp;
 	}

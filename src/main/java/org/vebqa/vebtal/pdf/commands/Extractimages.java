@@ -32,7 +32,7 @@ public class Extractimages extends AbstractCommand {
 
 	public Extractimages(String aCommand, String aTarget, String aValue) {
 		super(aCommand, aTarget, aValue);
-		this.type = CommandType.ACTION;
+		this.type = CommandType.ACCESSOR;
 	}
 
 	@Override

@@ -21,6 +21,7 @@ import org.apache.pdfbox.pdmodel.interactive.action.PDFormFieldAdditionalActions
 import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
+import org.apache.pdfbox.pdmodel.interactive.form.PDNonTerminalField;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -44,14 +45,14 @@ public class PDFDriver {
 
 	// Document Information
 	public String text;
-	public int numberOfPages;
-	public String author;
-	public Calendar creationDate;
+	private int numberOfPages;
+	private String author;
+	private Calendar creationDate;
 	public String creator;
 	public String keywords;
 	public String producer;
-	public String subject;
-	public String title;
+	private String subject;
+	private String title;
 	public boolean encrypted;
 	public boolean signed;
 	public String signerName;
@@ -71,11 +72,31 @@ public class PDFDriver {
 		return this;
 	}
 
+	public String getAuthor() {
+		return this.author;
+	}
+	
+	public Calendar getCreationDate() {
+		return this.creationDate;
+	}
+	
+	public int getNumberOfPages() {
+		return this.numberOfPages;
+	}
+	
+	public String getSubject() {
+		return this.subject;
+	}
+	
 	public PDFDriver load() throws IOException {
 		load(this.pathToResource, readAllBytes(Paths.get(this.pathToResource)));
 		return this;
 	}
 
+	public String getTitle() {
+		return this.title;
+	}
+	
 	public void load(File pdfFile) throws IOException {
 		load(pdfFile.getAbsolutePath(), readAllBytes(Paths.get(pdfFile.getAbsolutePath())));
 	}
@@ -159,6 +180,112 @@ public class PDFDriver {
 		return this.content;
 	}
 
+	/**
+	 * Return some informations about existing fields or null if no field is available
+	 * @param pdfDocument
+	 * @return
+	 * @throws IOException
+	 */
+	public String getFieldsInformation(PDDocument pdfDocument) throws IOException {
+
+		PDDocumentCatalog docCatalog = pdfDocument.getDocumentCatalog();
+		PDAcroForm acroForm = docCatalog.getAcroForm();
+		if (acroForm == null) {
+			return null;
+		}
+		List<PDField> fields = acroForm.getFields();
+
+		StringBuilder output = new StringBuilder();
+		for (PDField field : fields) {
+			output.append(processField(field, "|--", field.getPartialName()));
+			output.append("\n");
+		}
+		return output.toString();
+	}
+
+	private String processField(PDField field, String sLevel, String sParent) throws IOException {
+
+		String output = "";
+
+		String partialName = field.getPartialName();
+
+		if (field instanceof PDNonTerminalField) {
+			if (!sParent.equals(field.getPartialName())) {
+				if (partialName != null) {
+					sParent = sParent + "." + partialName;
+				}
+			}
+			output = sLevel + sParent;
+
+			for (PDField child : ((PDNonTerminalField) field).getChildren()) {
+				// there are more subs, so go deeper
+				processField(child, "|  " + sLevel, sParent);
+			}
+		} else {
+			String fieldValue = field.getValueAsString();
+			StringBuilder outputString = new StringBuilder(sLevel);
+			output = sParent;
+			if (partialName != null) {
+				outputString.append(".").append(partialName);
+			}
+			outputString.append("|").append(fieldValue);
+			outputString.append(",  type=").append(field.getClass().getSimpleName());
+
+			// get available script information
+			if (field.getActions() == null) {
+				outputString.append(", No actions");
+			} else {
+				outputString.append(", C:");
+				if (field.getActions().getC() != null) {
+					PDActionJavaScript js = (PDActionJavaScript) field.getActions().getC();
+					if (js != null) {
+						outputString.append("+");
+					} else {
+						outputString.append("-");
+					}
+				} else {
+					outputString.append("-");
+				}
+				outputString.append("|F:");
+				if (field.getActions().getF() != null) {
+					PDActionJavaScript js = (PDActionJavaScript) field.getActions().getF();
+					if (js != null) {
+						outputString.append("+");
+					} else {
+						outputString.append("-");
+					}
+				} else {
+					outputString.append("-");
+				}
+				outputString.append("|K:");
+				if (field.getActions().getK() != null) {
+					PDActionJavaScript js = (PDActionJavaScript) field.getActions().getK();
+					if (js != null) {
+						outputString.append("+");
+					} else {
+						outputString.append("-");
+					}
+				} else {
+					outputString.append("-");
+				}
+				outputString.append("|V:");
+				if (field.getActions().getV() != null) {
+					PDActionJavaScript js = (PDActionJavaScript) field.getActions().getV();
+					if (js != null) {
+						outputString.append("+");
+					} else {
+						outputString.append("-");
+					}
+				} else {
+					outputString.append("-");
+				}
+			}
+			output = output + outputString;
+		}
+
+		return output;
+	}
+	
 	/**
 	 * Return value or null if not available
 	 * @param aName
@@ -288,23 +415,5 @@ public class PDFDriver {
 			}
 		}
 		return false;
-	}
-
-	/**
-	 * initialize resource before testcase.
-	 */
-	protected void before() throws Throwable {
-		load(new File(pathToResource));
-	}
-
-	/**
-	 * Clean up resource after testcase.
-	 */
-	protected void after() {
-		try {
-			close();
-		} catch (IOException e) {
-			logger.error("Could not close pdf file.", e);
-		}
 	}
 }

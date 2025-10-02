@@ -12,7 +12,7 @@ public class Type extends AbstractCommand {
 	
 	public Type(String aCommand, String aTarget, String aValue) {
 		super(aCommand, aTarget, aValue);
-		this.type = CommandType.ASSERTION;
+		this.type = CommandType.ACTION;
 	}
 
 	@Override
