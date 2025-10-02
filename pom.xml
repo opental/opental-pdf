@@ -60,7 +60,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.github.vebqa</groupId>
+			<groupId>com.github.opental</groupId>
 			<artifactId>opental-core</artifactId>
 			<version>0.8.0-SNAPSHOT</version>
 		</dependency>
