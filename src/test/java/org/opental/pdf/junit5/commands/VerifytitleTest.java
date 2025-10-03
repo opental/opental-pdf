@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Verifytitle;
 
 public class VerifytitleTest {
@@ -18,9 +18,9 @@ public class VerifytitleTest {
 	@Test
 	public void verifyTitle() {
 		
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -41,9 +41,9 @@ public class VerifytitleTest {
 	@Test
 	public void verifyTitleFailWithoutTitle() {
 		
-		PDFDriver dut_nt = null;
+		PdfDriver dut_nt = null;
 		try {
-			dut_nt = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum500.pdf").load();
+			dut_nt = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum500.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -63,9 +63,9 @@ public class VerifytitleTest {
 	
 	@Test
 	public void verifyTitleMismatch() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}

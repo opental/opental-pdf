@@ -4,7 +4,7 @@ import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
 @Keyword(module = PdfTestAdaptionPlugin.ID, command = "storeFieldAction", hintTarget = "name=<partial name>", hintValue = "<buffer>")
@@ -17,7 +17,7 @@ public class Storefieldaction extends AbstractCommand {
 
 	@Override
 	public Response executeImpl(Object driver) {
-		PDFDriver pdfDriver = (PDFDriver)driver;
+		PdfDriver pdfDriver = (PdfDriver)driver;
 
 		Response tResp = new Response();
 		

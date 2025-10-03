@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Verifysubject;
 
 public class VerifysubjectTest {
@@ -19,9 +19,9 @@ public class VerifysubjectTest {
 
 	@Test
 	public void verifySubject() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/SampleFile.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/SampleFile.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -40,9 +40,9 @@ public class VerifysubjectTest {
 	
 	@Test
 	public void verifySubjectFailWithoutSubject() {
-		PDFDriver dut_ns = null;
+		PdfDriver dut_ns = null;
 		try {
-			dut_ns = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum500.pdf").load();
+			dut_ns = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum500.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -62,9 +62,9 @@ public class VerifysubjectTest {
 	
 	@Test
 	public void verifySubjectMismatch() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/SampleFile.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/SampleFile.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}

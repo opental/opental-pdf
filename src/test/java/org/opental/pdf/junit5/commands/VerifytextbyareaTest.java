@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Verifytextbyarea;
 
 public class VerifytextbyareaTest {
@@ -17,9 +17,9 @@ public class VerifytextbyareaTest {
 
 	@Test
 	public void verifyTextByArea() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -40,9 +40,9 @@ public class VerifytextbyareaTest {
 	@Test
 	public void verifyTextByAreaFailWithMismatch() {
 		
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -61,9 +61,9 @@ public class VerifytextbyareaTest {
 	
 	@Test
 	public void verifyTextByAreaFailWhileValueIsNull() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -83,9 +83,9 @@ public class VerifytextbyareaTest {
 	
 	@Test
 	public void verifyTextByAreaFailWhileTargetIsNull() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}

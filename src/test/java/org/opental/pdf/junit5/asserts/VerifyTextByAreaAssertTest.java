@@ -9,7 +9,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.asserts.VerifyTextByAreaAssert;
 
 public class VerifyTextByAreaAssertTest {
@@ -18,9 +18,9 @@ public class VerifyTextByAreaAssertTest {
 
 	@Test
 	public void checkIfEntireTextIsAvailabeInSpecificArea() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -30,9 +30,9 @@ public class VerifyTextByAreaAssertTest {
 
 	@Test
 	public void checkThatTextFragmentIsAvailabeInSpecificArea() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -44,9 +44,9 @@ public class VerifyTextByAreaAssertTest {
 	public void failWhileTextIsNotAvailabeInSpecifiedArea() {
 	    AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
-	        		PDFDriver dut = null;
+	        		PdfDriver dut = null;
 	        		try {
-	        			dut = new PDFDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
+	        			dut = new PdfDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
 	        		} catch (IOException e) {
 	        			logger.error("Could not load", e);
 	        		}
@@ -60,9 +60,9 @@ public class VerifyTextByAreaAssertTest {
 	public void failWhileOnlyTextFragmentIsAvailabeInSpecificArea() {
 	    AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
-	        		PDFDriver dut = null;
+	        		PdfDriver dut = null;
 	        		try {
-	        			dut = new PDFDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
+	        			dut = new PdfDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
 	        		} catch (IOException e) {
 	        			logger.error("Could not load", e);
 	        		}

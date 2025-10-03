@@ -10,7 +10,7 @@ import org.junit.jupiter.api.io.TempDir;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Capturepagescreenshot;
 
 public class CapturepagescreenshotTest {
@@ -19,9 +19,9 @@ public class CapturepagescreenshotTest {
 
 	@Test
 	public void captureScreenshotOfGivenPage(@TempDir Path tempDir) {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -39,9 +39,9 @@ public class CapturepagescreenshotTest {
 
 	@Test
 	public void captureScreenshotFailWhileSavingImage() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}

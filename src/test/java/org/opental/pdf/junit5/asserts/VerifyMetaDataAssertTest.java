@@ -3,7 +3,7 @@ package org.opental.pdf.junit5.asserts;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.asserts.VerifyMetaDataAssert;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -16,13 +16,13 @@ public class VerifyMetaDataAssertTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(VerifyMetaDataAssertTest.class);
 	
-	public final PDFDriver dut_nt = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum500.pdf");
+	public final PdfDriver dut_nt = new PdfDriver().setFilePath("./src/test/java/resource/LoremIpsum500.pdf");
 
 	@Test
 	public void checkIfDocumentHasGivenNoOfPages() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -34,9 +34,9 @@ public class VerifyMetaDataAssertTest {
 
 	    AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
-	        		PDFDriver dut = null;
+	        		PdfDriver dut = null;
 	        		try {
-	        			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+	        			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 	        		} catch (IOException e) {
 	        			logger.error("Could not load", e);
 	        		}
@@ -48,9 +48,9 @@ public class VerifyMetaDataAssertTest {
 	
 	@Test
 	public void checkIfDocumentHasGivenAuthor() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -63,9 +63,9 @@ public class VerifyMetaDataAssertTest {
 		
 		AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
-	        		PDFDriver dut = null;
+	        		PdfDriver dut = null;
 	        		try {
-	        			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+	        			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 	        		} catch (IOException e) {
 	        			logger.error("Could not load", e);
 	        		}
@@ -77,9 +77,9 @@ public class VerifyMetaDataAssertTest {
 	
 	@Test
 	public void checkIfDocumentHasGivenCreator() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -92,9 +92,9 @@ public class VerifyMetaDataAssertTest {
 
 		AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
-	        		PDFDriver dut = null;
+	        		PdfDriver dut = null;
 	        		try {
-	        			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+	        			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 	        		} catch (IOException e) {
 	        			logger.error("Could not load", e);
 	        		}
@@ -106,9 +106,9 @@ public class VerifyMetaDataAssertTest {
 	
 	@Test
 	public void checkIfDocumentHasGivenTitle() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -121,9 +121,9 @@ public class VerifyMetaDataAssertTest {
 
 		AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
-	        		PDFDriver dut = null;
+	        		PdfDriver dut = null;
 	        		try {
-	        			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+	        			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 	        		} catch (IOException e) {
 	        			logger.error("Could not load", e);
 	        		}
@@ -139,9 +139,9 @@ public class VerifyMetaDataAssertTest {
 
 		AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
-	        		PDFDriver dut = null;
+	        		PdfDriver dut = null;
 	        		try {
-	        			dut = new PDFDriver().setFilePath("./src/test/resources/EmptyFile.pdf").load();
+	        			dut = new PdfDriver().setFilePath("./src/test/resources/EmptyFile.pdf").load();
 	        		} catch (IOException e) {
 	        			logger.error("Could not load", e);
 	        		}

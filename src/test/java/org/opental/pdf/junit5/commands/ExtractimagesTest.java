@@ -11,7 +11,7 @@ import org.junit.jupiter.api.io.TempDir;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Extractimages;
 
 public class ExtractimagesTest {
@@ -23,9 +23,9 @@ public class ExtractimagesTest {
 	
 	@Test
 	public void extractImages(@TempDir Path tempDir) {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/SampleFileWithImage.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/SampleFileWithImage.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -47,9 +47,9 @@ public class ExtractimagesTest {
 
 	@Test
 	public void extractImagesToSpecificFolder(@TempDir Path tempDir) {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/SampleFileWithImage.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/SampleFileWithImage.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -72,9 +72,9 @@ public class ExtractimagesTest {
 
 	@Test
 	public void noImagesToExtract() {
-		PDFDriver dut_ni = null;
+		PdfDriver dut_ni = null;
 		try {
-			dut_ni = new PDFDriver().setFilePath("./src/test/resources/SampleFile.pdf").load();
+			dut_ni = new PdfDriver().setFilePath("./src/test/resources/SampleFile.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}

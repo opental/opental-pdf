@@ -4,7 +4,7 @@ import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
 @Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyFieldScript", hintTarget = "name=<partial name>;script=CFKV")
@@ -17,7 +17,7 @@ public class Verifyfieldscript extends AbstractCommand {
 
 	@Override
 	public Response executeImpl(Object driver) {
-		PDFDriver pdfDriver = (PDFDriver)driver;
+		PdfDriver pdfDriver = (PdfDriver)driver;
 
 		Response tResp = new Response();
 		
@@ -41,17 +41,17 @@ public class Verifyfieldscript extends AbstractCommand {
 			}
 		}		
 		
-		if (action.contains(PDFDriver.ACTION_CALCULATE)) {
-			action = PDFDriver.ACTION_CALCULATE;
+		if (action.contains(PdfDriver.ACTION_CALCULATE)) {
+			action = PdfDriver.ACTION_CALCULATE;
 		}
-		if (action.contains(PDFDriver.ACTION_FORMAT)) {
-			action = PDFDriver.ACTION_FORMAT;
+		if (action.contains(PdfDriver.ACTION_FORMAT)) {
+			action = PdfDriver.ACTION_FORMAT;
 		}
-		if (action.contains(PDFDriver.ACTION_KEYSTROKE)) {
-			action = PDFDriver.ACTION_KEYSTROKE;
+		if (action.contains(PdfDriver.ACTION_KEYSTROKE)) {
+			action = PdfDriver.ACTION_KEYSTROKE;
 		}
-		if (action.contains(PDFDriver.ACTION_VALIDATE)) {
-			action = PDFDriver.ACTION_VALIDATE;
+		if (action.contains(PdfDriver.ACTION_VALIDATE)) {
+			action = PdfDriver.ACTION_VALIDATE;
 		}
 		
 		boolean hasAction = pdfDriver.hasAdditionalActionByFieldName(name, action);

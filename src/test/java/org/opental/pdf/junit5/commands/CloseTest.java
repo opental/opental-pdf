@@ -4,12 +4,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Close;
 
 public class CloseTest {
 
-	public final PDFDriver dut = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum_3Pages.pdf");
+	public final PdfDriver dut = new PdfDriver().setFilePath("./src/test/java/resource/LoremIpsum_3Pages.pdf");
 
 	@Test
 	public void closePdfFile() {

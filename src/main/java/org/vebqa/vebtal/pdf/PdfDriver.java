@@ -26,14 +26,14 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PDFDriver {
+public class PdfDriver {
 
 	public static final String ACTION_VALIDATE = "validate";
 	public static final String ACTION_CALCULATE = "calculate";
 	public static final String ACTION_FORMAT = "format";
 	public static final String ACTION_KEYSTROKE = "keystroke";
 	
-	private static final Logger logger = LoggerFactory.getLogger(PDFDriver.class);
+	private static final Logger logger = LoggerFactory.getLogger(PdfDriver.class);
 
 	private boolean isSuccessfullyLoaded;
 
@@ -58,7 +58,7 @@ public class PDFDriver {
 	public String signerName;
 	public Calendar signatureTime;
 
-	public PDFDriver() {
+	public PdfDriver() {
 		this.isSuccessfullyLoaded = false;
 		this.content = null;
 	}
@@ -67,7 +67,7 @@ public class PDFDriver {
 		return this.pathToResource;
 	}
 
-	public PDFDriver setFilePath(String aPathToDoc) {
+	public PdfDriver setFilePath(String aPathToDoc) {
 		this.pathToResource = aPathToDoc;
 		return this;
 	}
@@ -88,7 +88,7 @@ public class PDFDriver {
 		return this.subject;
 	}
 	
-	public PDFDriver load() throws IOException {
+	public PdfDriver load() throws IOException {
 		load(this.pathToResource, readAllBytes(Paths.get(this.pathToResource)));
 		return this;
 	}
@@ -336,16 +336,16 @@ public class PDFDriver {
 					return null;
 				}
 				
-				if ((actions.getV() != null) && anAction.contentEquals(PDFDriver.ACTION_VALIDATE)) {
+				if ((actions.getV() != null) && anAction.contentEquals(PdfDriver.ACTION_VALIDATE)) {
 					return ((PDActionJavaScript)actions.getV()).getAction();
 				}
-				if ((actions.getC() != null) && anAction.contentEquals(PDFDriver.ACTION_CALCULATE)) {
+				if ((actions.getC() != null) && anAction.contentEquals(PdfDriver.ACTION_CALCULATE)) {
 					return ((PDActionJavaScript)actions.getC()).getAction();
 				}
-				if ((actions.getF() != null) && anAction.contentEquals(PDFDriver.ACTION_FORMAT)) {
+				if ((actions.getF() != null) && anAction.contentEquals(PdfDriver.ACTION_FORMAT)) {
 					return ((PDActionJavaScript)actions.getF()).getAction();
 				}
-				if ((actions.getK() != null) && anAction.contentEquals(PDFDriver.ACTION_KEYSTROKE)) {
+				if ((actions.getK() != null) && anAction.contentEquals(PdfDriver.ACTION_KEYSTROKE)) {
 					return ((PDActionJavaScript)actions.getK()).getAction();
 				}
 			}
@@ -373,16 +373,16 @@ public class PDFDriver {
 					return false;
 				}
 				
-				if ((actions.getV() != null) && anAction.contentEquals(PDFDriver.ACTION_VALIDATE)) {
+				if ((actions.getV() != null) && anAction.contentEquals(PdfDriver.ACTION_VALIDATE)) {
 					return true;
 				}
-				if ((actions.getC() != null) && anAction.contentEquals(PDFDriver.ACTION_CALCULATE)) {
+				if ((actions.getC() != null) && anAction.contentEquals(PdfDriver.ACTION_CALCULATE)) {
 					return true;
 				}
-				if ((actions.getF() != null) && anAction.contentEquals(PDFDriver.ACTION_FORMAT)) {
+				if ((actions.getF() != null) && anAction.contentEquals(PdfDriver.ACTION_FORMAT)) {
 					return true;
 				}
-				if ((actions.getK() != null) && anAction.contentEquals(PDFDriver.ACTION_KEYSTROKE)) {
+				if ((actions.getK() != null) && anAction.contentEquals(PdfDriver.ACTION_KEYSTROKE)) {
 					return true;
 				}
 			}

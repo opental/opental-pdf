@@ -9,7 +9,7 @@ public class PDFStore {
 	
 	private static final PDFStore store = new PDFStore();
 	
-	private PDFDriver pdfDriver = new PDFDriver();
+	private PdfDriver pdfDriver = new PdfDriver();
 	
 	public PDFStore() {
 		logger.debug("PDF Store created");
@@ -19,7 +19,7 @@ public class PDFStore {
 		return store;
 	}
 	
-	public PDFDriver getDriver() {
+	public PdfDriver getDriver() {
 		return pdfDriver;
 	}
 }

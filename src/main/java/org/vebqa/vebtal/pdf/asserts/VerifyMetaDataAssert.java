@@ -1,20 +1,20 @@
 package org.vebqa.vebtal.pdf.asserts;
 
 import org.assertj.core.api.AbstractAssert;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 
 /**
  * Special assertion class - inherits from AbstractAssert!
  * @author doerges
  *
  */
-public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, PDFDriver> {
+public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, PdfDriver> {
 	
 	/**
 	 * Constructor assertion class, PDF filename ist the object we want to make assertions on.
 	 * @param	aPdfToTest a documkent to test
 	 */
-	public VerifyMetaDataAssert(PDFDriver aPdfToTest) {
+	public VerifyMetaDataAssert(PdfDriver aPdfToTest) {
 		super(aPdfToTest, VerifyMetaDataAssert.class);
 	}	
 	
@@ -23,7 +23,7 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
      * @param	aPdfToTest	Our document to test
      * @return	self
      */
-    public static VerifyMetaDataAssert assertThat(PDFDriver aPdfToTest) {
+    public static VerifyMetaDataAssert assertThat(PdfDriver aPdfToTest) {
         return new VerifyMetaDataAssert(aPdfToTest);
     }
     

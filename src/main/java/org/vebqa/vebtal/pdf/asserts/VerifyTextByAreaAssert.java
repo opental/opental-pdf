@@ -8,7 +8,7 @@ import org.assertj.core.api.AbstractAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.pdf.Area;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 
 /**
  * Special assertion class - inherits from AbstractAssert!
@@ -16,7 +16,7 @@ import org.vebqa.vebtal.pdf.PDFDriver;
  * @author doerges
  *
  */
-public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAssert, PDFDriver> {
+public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAssert, PdfDriver> {
 
 	private static final Logger logger = LoggerFactory.getLogger(VerifyTextByAreaAssert.class);
 
@@ -34,7 +34,7 @@ public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAsser
 	 * 
 	 * @param aPdfToTest a document to test
 	 */
-	public VerifyTextByAreaAssert(PDFDriver aPdfToTest) {
+	public VerifyTextByAreaAssert(PdfDriver aPdfToTest) {
 		super(aPdfToTest, VerifyTextByAreaAssert.class);
 	}
 
@@ -45,7 +45,7 @@ public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAsser
 	 * @param aPdfToTest a document we want to test
 	 * @return new object
 	 */
-	public static VerifyTextByAreaAssert assertThat(PDFDriver aPdfToTest) {
+	public static VerifyTextByAreaAssert assertThat(PdfDriver aPdfToTest) {
 		return new VerifyTextByAreaAssert(aPdfToTest);
 	}
 

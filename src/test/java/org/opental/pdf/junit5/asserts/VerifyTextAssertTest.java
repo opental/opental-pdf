@@ -8,7 +8,7 @@ import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.asserts.VerifyTextAssert;
 
 public class VerifyTextAssertTest {
@@ -17,9 +17,9 @@ public class VerifyTextAssertTest {
 	
 	@Test
 	public void findTextInPdf() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -30,9 +30,9 @@ public class VerifyTextAssertTest {
 	public void failFindingTextInPdf() {
 	    AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
-	        		PDFDriver dut = null;
+	        		PdfDriver dut = null;
 	        		try {
-	        			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+	        			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 	        		} catch (IOException e) {
 	        			logger.error("Could not load", e);
 	        		}
@@ -44,9 +44,9 @@ public class VerifyTextAssertTest {
 	
 	@Test
 	public void findTextAtPage_1() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -56,9 +56,9 @@ public class VerifyTextAssertTest {
 
 	@Test
 	public void findTextAtPage_2() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -68,9 +68,9 @@ public class VerifyTextAssertTest {
 
 	@Test
 	public void findTextAtPage_3() {
-		PDFDriver dut = null;
+		PdfDriver dut = null;
 		try {
-			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 		} catch (IOException e) {
 			logger.error("Could not load", e);
 		}
@@ -82,9 +82,9 @@ public class VerifyTextAssertTest {
 	public void failFindingTextInPage() {
 	    AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
-	        		PDFDriver dut = null;
+	        		PdfDriver dut = null;
 	        		try {
-	        			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+	        			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
 	        		} catch (IOException e) {
 	        			logger.error("Could not load", e);
 	        		}

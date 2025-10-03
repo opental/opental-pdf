@@ -4,7 +4,7 @@ import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.PDFDriver;
+import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
 @Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifySubject", hintTarget = "<string>")
@@ -17,7 +17,7 @@ public class Verifysubject extends AbstractCommand {
 
 	@Override
 	public Response executeImpl(Object aDocument) {
-		PDFDriver driver = (PDFDriver) aDocument;
+		PdfDriver driver = (PdfDriver) aDocument;
 		
 		Response tResp = new Response();
 
