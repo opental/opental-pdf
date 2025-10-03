@@ -26,13 +26,13 @@ public class CapturepagescreenshotTest {
 			logger.error("Could not load", e);
 		}
 		
-		String file = tempDir.getRoot().toString() + "\\pageScreenshot.png";
-		Capturepagescreenshot cmd = new Capturepagescreenshot("capturePageScreenshot", "page=2", file);
+		Path file = tempDir.resolve("pageScreenshot.png");
+		Capturepagescreenshot cmd = new Capturepagescreenshot("capturePageScreenshot", "page=2", file.getFileName().toString());
 		Response result = cmd.executeImpl(dut);
 
 		Response resultCheck = new Response();
 		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Successfully written data to file: " + file);
+		resultCheck.setMessage("Successfully written data to file: " + file.getFileName().toString());
 
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
 	}

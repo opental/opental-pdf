@@ -141,7 +141,7 @@ public class VerifyMetaDataAssertTest {
 	            assertThrows(AssertionError.class, () -> {
 	        		PDFDriver dut = null;
 	        		try {
-	        			dut = new PDFDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+	        			dut = new PDFDriver().setFilePath("./src/test/resources/EmptyFile.pdf").load();
 	        		} catch (IOException e) {
 	        			logger.error("Could not load", e);
 	        		}

@@ -95,7 +95,7 @@ public class VerifyTextAssert extends AbstractAssert<VerifyTextAssert, PDFDriver
 			failWithMessage("Expected text is <%s>, but the page was empty.", this.textToFind);
 		}
 		if (!pageText.contains(this.textToFind)) {
-			failWithMessage("Expected text <%s> not found in the content <%s>.", this.textToFind, pageText);
+			failWithMessage("Expected text <%s> not found in the content.", this.textToFind);
 		}
 
 		// Hint for designing and creating tests: we want to print the coordinates of

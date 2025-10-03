@@ -1,5 +1,6 @@
 package org.opental.pdf.junit5.asserts;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -52,8 +53,7 @@ public class VerifyTextByAreaAssertTest {
 
 	        		VerifyTextByAreaAssert.assertThat(dut).hasText("This is a text.").atPage(1).inArea(1, 1, 65, 20).check();
 	            });
-	        assertEquals("Expected text <This is a text.> is not availabe in the located area. Instead found: <", exception.getMessage());
-
+	        assertThat(exception.getMessage()).isEqualTo("Expected text <This is a text.> is not availabe in the located area. Instead found: <\r\n>");
 	}
 
 	@Test

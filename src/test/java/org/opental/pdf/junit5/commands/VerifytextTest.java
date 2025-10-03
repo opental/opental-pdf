@@ -32,10 +32,10 @@ public class VerifytextTest {
 		// create a green result object
 		Response resultCheck = new Response();
 		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Expected text <Marker Page 1> found in page: 1");
+		resultCheck.setMessage("Expected text <Marker Page 1> found");
 
 		// check
-		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
+		assertThat(result).usingRecursiveComparison().isEqualTo(resultCheck);
 	}
 
 	@Test
@@ -54,10 +54,10 @@ public class VerifytextTest {
 		// create a green result object
 		Response resultCheck = new Response();
 		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Successfully found text: Marker Page 2");
+		resultCheck.setMessage("Expected text <Marker Page 2> found");
 
 		// check
-		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
+		assertThat(result).usingRecursiveComparison().isEqualTo(resultCheck);
 	}
 
 	@Test
@@ -76,10 +76,10 @@ public class VerifytextTest {
 		// create a green result object
 		Response resultCheck = new Response();
 		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Did not find expected text <Marker Page 1> in page: 2");
+		resultCheck.setMessage("Did not find expected text <Marker Page 1>");
 
 		// check
-		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
+		assertThat(result).usingRecursiveComparison().isEqualTo(resultCheck);
 	}
 
 	@Test
@@ -98,9 +98,9 @@ public class VerifytextTest {
 		// create a green result object
 		Response resultCheck = new Response();
 		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Cannot find text: You can't find me!");
+		resultCheck.setMessage("Did not find expected text <You can't find me!>");
 
 		// check
-		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
+		assertThat(result).usingRecursiveComparison().isEqualTo(resultCheck);
 	}
 }

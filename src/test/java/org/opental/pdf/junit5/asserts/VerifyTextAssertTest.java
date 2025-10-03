@@ -38,7 +38,7 @@ public class VerifyTextAssertTest {
 	        		}
 	            	VerifyTextAssert.assertThat(dut).hasText("Duis autem Entenhausen").check();
 	            });
-	        assertEquals("Expected text <Duis autem Entenhausen> not found in the content <", exception.getMessage());
+	        assertEquals("Expected text <Duis autem Entenhausen> not found in the content.", exception.getMessage());
 
 	}
 	
@@ -90,7 +90,7 @@ public class VerifyTextAssertTest {
 	        		}
 	            	VerifyTextAssert.assertThat(dut).hasText("Marker Page 2").atPage(1).check();
 	            });
-	        assertEquals("Expected text <Marker Page 2> not found in the content <", exception.getMessage());
+	        assertEquals("Expected text <Marker Page 2> not found in the content.", exception.getMessage());
 
 		
 	}
