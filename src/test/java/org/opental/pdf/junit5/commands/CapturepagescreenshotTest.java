@@ -27,12 +27,12 @@ public class CapturepagescreenshotTest {
 		}
 		
 		Path file = tempDir.resolve("pageScreenshot.png");
-		Capturepagescreenshot cmd = new Capturepagescreenshot("capturePageScreenshot", "page=2", file.getFileName().toString());
+		Capturepagescreenshot cmd = new Capturepagescreenshot("capturePageScreenshot", "page=2", file.toString());
 		Response result = cmd.executeImpl(dut);
 
 		Response resultCheck = new Response();
 		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Successfully written data to file: " + file.getFileName().toString());
+		resultCheck.setMessage("Successfully written data to file: " + file.toString());
 
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
 	}
