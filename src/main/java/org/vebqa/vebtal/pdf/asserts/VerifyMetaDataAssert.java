@@ -36,7 +36,7 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
     	// check that we really have a pdf filename defined.
     	isNotNull();
 
-		if (this.actual.getDocument().getNumberOfPages() != pages) {
+		if (this.actual.getNumberOfPages() != pages) {
 			failWithMessage("Expected no. of pages <%s> but was <%s>.", pages, this.actual.getDocument().getNumberOfPages());
 		}
 		
@@ -52,7 +52,7 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
     	// check that we really have a pdf filename defined.
     	isNotNull();
 
-		if (!this.actual.getDocument().getDocumentInformation().getAuthor().contentEquals(anAuthor)) {
+		if (!this.actual.getAuthor().contentEquals(anAuthor)) {
 			failWithMessage("Expected author is <%s> but was <%s>", anAuthor, this.actual.getDocument().getDocumentInformation().getAuthor());
 		}
 		
@@ -68,7 +68,7 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
     	// check that we really have a pdf filename defined.
     	isNotNull();
 
-		if (!this.actual.getDocument().getDocumentInformation().getCreator().contentEquals(aCreator)) {
+		if (!this.actual.getCreator().contentEquals(aCreator)) {
 			failWithMessage("Expected creator is <%s> but was <%s>", aCreator, this.actual.getDocument().getDocumentInformation().getCreator());
 		}
 		
@@ -84,10 +84,10 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
     	// check that we really have a pdf filename defined.
     	isNotNull();
 
-		if (this.actual.getDocument().getDocumentInformation().getTitle() == null) {
+		if (this.actual.getTitle() == null) {
 			failWithMessage("Expected title is <%s> but there is no title object.", aTitle);
 		}
-		if (!this.actual.getDocument().getDocumentInformation().getTitle().contentEquals(aTitle)) {
+		if (!this.actual.getTitle().contentEquals(aTitle)) {
 			failWithMessage("Expected title is <%s> but was <%s>", aTitle, this.actual.getDocument().getDocumentInformation().getTitle());
 		}
 		

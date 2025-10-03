@@ -43,8 +43,7 @@ public class Capturepagescreenshot extends AbstractCommand {
 
 		Response tResp = new Response();
 
-		InputStream inputStream = new ByteArrayInputStream(driver.getContentStream());
-		try {
+		try (InputStream inputStream = new ByteArrayInputStream(driver.getContentStream());) {
 			PDDocument pdf = Loader.loadPDF(new RandomAccessReadBuffer(inputStream));
 			PDFRenderer pdfRenderer = new PDFRenderer(pdf);
 			BufferedImage bim = pdfRenderer.renderImageWithDPI(page, 300, ImageType.RGB);
@@ -60,12 +59,6 @@ public class Capturepagescreenshot extends AbstractCommand {
 			tResp.setCode(Response.FAILED);
 			tResp.setMessage("Could not write Image to file: " + value);
 			return tResp;
-		} finally {
-			try {
-				inputStream.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 
 		tResp.setCode(Response.PASSED);

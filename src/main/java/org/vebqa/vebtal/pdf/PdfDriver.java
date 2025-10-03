@@ -48,7 +48,7 @@ public class PdfDriver {
 	private int numberOfPages;
 	private String author;
 	private Calendar creationDate;
-	public String creator;
+	private String creator;
 	public String keywords;
 	public String producer;
 	private String subject;
@@ -86,6 +86,10 @@ public class PdfDriver {
 	
 	public String getSubject() {
 		return this.subject;
+	}
+	
+	public String getCreator() {
+		return this.creator;
 	}
 	
 	public PdfDriver load() throws IOException {
@@ -300,8 +304,6 @@ public class PdfDriver {
 		List<PDField> fields = acroForm.getFields();
 		for (PDField field : fields) {
 			if (field.getPartialName().contentEquals(aName)) {
-				// PDFormFieldAdditionalActions actions = field.getActions();
-				// PDActionJavaScript js = (PDActionJavaScript) actions.getV();
 				return field.getValueAsString();
 			}
 		}
@@ -402,16 +404,16 @@ public class PdfDriver {
 		List<PDField> fields = acroForm.getFields();
 		for (PDField field : fields) {
 			if (field.getPartialName().contentEquals(aName)) {
-				logger.info("Field found: " + aName);
+				logger.info("Field found: {}", aName);
 				try {
 					field.setValue(aValue);
 				} catch (IOException e) {
-					logger.error("cannot write to field: " + aName, e);
+					logger.error("cannot write to field: {}", aName, e);
 					return false;
 				}
 				return true;
 			} else {
-				logger.info("Field not matching: " + field.getPartialName());
+				logger.info("Field not matching: {}", field.getPartialName());
 			}
 		}
 		return false;
