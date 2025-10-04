@@ -22,7 +22,6 @@ import org.apache.pdfbox.pdmodel.interactive.digitalsignature.PDSignature;
 import org.apache.pdfbox.pdmodel.interactive.form.PDAcroForm;
 import org.apache.pdfbox.pdmodel.interactive.form.PDField;
 import org.apache.pdfbox.pdmodel.interactive.form.PDNonTerminalField;
-import org.apache.pdfbox.text.PDFTextStripper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -44,7 +43,6 @@ public class PdfDriver {
 	private byte[] content;
 
 	// Document Information
-	public String text;
 	private int numberOfPages;
 	private String author;
 	private Calendar creationDate;
@@ -53,6 +51,7 @@ public class PdfDriver {
 	public String producer;
 	private String subject;
 	private String title;
+	private String isTrapped;
 	public boolean encrypted;
 	public boolean signed;
 	public String signerName;
@@ -92,6 +91,13 @@ public class PdfDriver {
 		return this.creator;
 	}
 	
+	public Boolean isTrapped() {
+		if (this.isTrapped == null) {
+			return false;
+		}
+		return true;
+	}
+	
 	public PdfDriver load() throws IOException {
 		load(this.pathToResource, readAllBytes(Paths.get(this.pathToResource)));
 		return this;
@@ -120,7 +126,6 @@ public class PdfDriver {
 
 		try (InputStream inputStream = new ByteArrayInputStream(content)) {
 			this.document = Loader.loadPDF(new RandomAccessReadBuffer(inputStream));
-			this.text = new PDFTextStripper().getText(this.document);
 			this.pathToResource = name;
 			this.numberOfPages = this.document.getNumberOfPages();
 			this.author = this.document.getDocumentInformation().getAuthor();
@@ -130,6 +135,7 @@ public class PdfDriver {
 			this.producer = this.document.getDocumentInformation().getProducer();
 			this.subject = this.document.getDocumentInformation().getSubject();
 			this.title = this.document.getDocumentInformation().getTitle();
+			this.isTrapped = this.document.getDocumentInformation().getTrapped();
 			this.encrypted = this.document.isEncrypted();
 			PDSignature signature = this.document.getLastSignatureDictionary();
 			this.signed = signature != null;

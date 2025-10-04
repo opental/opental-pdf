@@ -37,7 +37,7 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
     	isNotNull();
 
 		if (this.actual.getNumberOfPages() != pages) {
-			failWithMessage("Expected no. of pages <%s> but was <%s>.", pages, this.actual.getDocument().getNumberOfPages());
+			failWithMessage("Expected no. of pages <%s> but was <%s>.", pages, this.actual.getNumberOfPages());
 		}
 		
 		return this;
@@ -53,7 +53,7 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
     	isNotNull();
 
 		if (!this.actual.getAuthor().contentEquals(anAuthor)) {
-			failWithMessage("Expected author is <%s> but was <%s>", anAuthor, this.actual.getDocument().getDocumentInformation().getAuthor());
+			failWithMessage("Expected author is <%s> but was <%s>", anAuthor, this.actual.getAuthor());
 		}
 		
 		return this;
@@ -69,7 +69,7 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
     	isNotNull();
 
 		if (!this.actual.getCreator().contentEquals(aCreator)) {
-			failWithMessage("Expected creator is <%s> but was <%s>", aCreator, this.actual.getDocument().getDocumentInformation().getCreator());
+			failWithMessage("Expected creator is <%s> but was <%s>", aCreator, this.actual.getCreator());
 		}
 		
 		return this;
@@ -88,7 +88,26 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
 			failWithMessage("Expected title is <%s> but there is no title object.", aTitle);
 		}
 		if (!this.actual.getTitle().contentEquals(aTitle)) {
-			failWithMessage("Expected title is <%s> but was <%s>", aTitle, this.actual.getDocument().getDocumentInformation().getTitle());
+			failWithMessage("Expected title is <%s> but was <%s>", aTitle, this.actual.getTitle());
+		}
+		
+		return this;
+    }
+    
+    /**
+     * 
+     * @param	aTitle	the title we are expecting
+     * @return	self
+     */
+    public VerifyMetaDataAssert isTrapped(String isTrapped) {
+    	// check that we really have a pdf filename defined.
+    	isNotNull();
+
+		if (this.actual.isTrapped() == null) {
+			failWithMessage("Expected trapped is <%s> but there is no trapped object.", isTrapped);
+		}
+		if (!this.actual.isTrapped()) {
+			failWithMessage("Expected trapped is <%s> but was <%s>", isTrapped, this.actual.isTrapped());
 		}
 		
 		return this;

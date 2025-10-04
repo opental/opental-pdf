@@ -150,4 +150,21 @@ public class VerifyMetaDataAssertTest {
 	            });
 	        assertEquals("Expected title is <WRONG TITLE> but there is no title object.", exception.getMessage());
 	}
+	
+	@Test
+	public void checkIfDocumentIsNotTrapped() {
+		
+		AssertionError exception =
+	            assertThrows(AssertionError.class, () -> {
+	        		PdfDriver dut = null;
+	        		try {
+	        			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
+	        		} catch (IOException e) {
+	        			logger.error("Could not load", e);
+	        		}
+
+	        		VerifyMetaDataAssert.assertThat(dut).isTrapped("true");
+	            });
+	        assertEquals("Expected trapped is <true> but was <false>", exception.getMessage());
+	}	
 }
