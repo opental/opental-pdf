@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
+import org.vebqa.vebtal.model.FailedResponse;
+import org.vebqa.vebtal.model.PassedResponse;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
@@ -22,19 +24,16 @@ public class Close extends AbstractCommand {
 		
 		PdfDriver driver = (PdfDriver)aDocument;
 
-		Response tResp = new Response();
-
+		if (!driver.isLoaded()) {
+			return new FailedResponse("No document loaded.");
+		}
+		
 		try {
 			driver.close();
 		} catch (IOException e) {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Error while closing pdf file: " + e.getMessage());
-			return tResp;
+			return new FailedResponse("Error while closing pdf file: " + e.getMessage());
 		}
 		
-		tResp.setCode(Response.PASSED);
-		tResp.setMessage("Successfully removes SUT from memory.");
-		
-		return tResp;
+		return new PassedResponse("Document successfully removed from memory.");
 	}
 }

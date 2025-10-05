@@ -3,7 +3,6 @@ package org.vebqa.vebtal.pdf.commands;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -13,11 +12,16 @@ import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
+import org.vebqa.vebtal.model.FailedResponse;
+import org.vebqa.vebtal.model.PassedResponse;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyText", hintTarget = "page=")
+@Keyword(module = PdfTestAdaptionPlugin.ID, 
+         command = "verifyText", 
+         hintTarget = "page=<number>",
+         hintValue = "<text>")
 public class Verifytext extends AbstractCommand {
 
 	private static final Logger logger = LoggerFactory.getLogger(Verifytext.class);
@@ -27,30 +31,18 @@ public class Verifytext extends AbstractCommand {
 		this.type = CommandType.ASSERTION;
 	}
 
-	/**
-	 * | command | target | value | 
-	 * 
-	 * | verifyText | | text | 
-	 * 
-	 * | verifyText | page=n | text |
-	 */
 	@Override
 	public Response executeImpl(Object aDocument) {
 
 		PdfDriver driver = (PdfDriver)aDocument;
-
-		Response tResp = new Response();
 		
 		if (!driver.isLoaded()) {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("No SUT loaded yet. Cannot test against null.");
-			return tResp;
+			return new FailedResponse("No document loaded.");
 		}
 
 		int testPage = -1;
 		
 		if (target != null && !target.contentEquals("")) {
-			// resolve target
 			String[] token = target.split("=");
 			testPage = Integer.parseInt(token[1]);
 		}
@@ -59,14 +51,10 @@ public class Verifytext extends AbstractCommand {
 			InputStream inputStream = new ByteArrayInputStream(driver.getContentStream());
 			PDDocument pdf = Loader.loadPDF(new RandomAccessReadBuffer(inputStream));
 			int countPages = pdf.getNumberOfPages();
-			logger.info("successfully loaded {} pages");
+			logger.info("successfully loaded {} pages", countPages);
 			PDFTextStripper stripper = new PDFTextStripper();
-			if (testPage > 0) {
-				if (countPages < testPage) {
-					tResp.setCode(Response.FAILED);
-					tResp.setMessage("page to test (" + testPage + ") is higher than number of pages ("+ countPages +")");
-					return tResp;
-				}
+		    if (testPage > 0 && countPages < testPage) {
+			    return new FailedResponse("page to test (" + testPage + ") is higher than number of pages ("+ countPages +")");
 			}
 			if (testPage > 0) {
 				stripper.setStartPage(testPage);
@@ -76,14 +64,13 @@ public class Verifytext extends AbstractCommand {
 		} catch (IOException e) {
 			logger.error("Error while stripping text from pdf document!", e);
 		}
-		if (pageText != null && pageText.contains(value)) {
-			tResp.setCode(Response.PASSED);
-			tResp.setMessage("Expected text <" + value + "> found");
-		} else {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Did not find expected text <" + value + ">");
+		if (pageText == null) {
+			return new FailedResponse("No text in focument");
 		}
-		
-		return tResp;
+		if (!pageText.contains(value)) {
+			return new FailedResponse("Did not find expected text <" + value + ">");
+		}
+
+		return new PassedResponse("Expected text <" + value + "> found");
 	}
 }
