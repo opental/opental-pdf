@@ -39,6 +39,10 @@ public class Capturepagescreenshot extends AbstractCommand {
 	@Override
 	public Response executeImpl(Object aDocument) {
 
+		if (!this.validate()) {
+			return new FailedResponse("Input doesnt match validation pattern.");
+		}
+		
 		PdfDriver driver = (PdfDriver)aDocument;
 
 		if (!driver.isLoaded()) {

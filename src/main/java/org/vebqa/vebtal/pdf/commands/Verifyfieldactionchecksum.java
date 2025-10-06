@@ -4,6 +4,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
+import org.vebqa.vebtal.model.FailedResponse;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
@@ -18,6 +19,11 @@ public class Verifyfieldactionchecksum extends AbstractCommand {
 
 	@Override
 	public Response executeImpl(Object driver) {
+		
+		if (!this.validate()) {
+			return new FailedResponse("Input doesnt match validation pattern.");
+		}
+		
 		PdfDriver pdfDriver = (PdfDriver)driver;
 
 		Response tResp = new Response();

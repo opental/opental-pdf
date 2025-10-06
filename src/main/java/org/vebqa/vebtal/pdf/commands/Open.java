@@ -15,7 +15,9 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "open", hintTarget = "path/to/doc.pdf")
+@Keyword(module = PdfTestAdaptionPlugin.ID, 
+         command = "open", 
+         hintTarget = "path/to/doc.pdf")
 public class Open extends AbstractCommand {
 
 	private static final Logger logger = LoggerFactory.getLogger(Open.class);
@@ -28,6 +30,10 @@ public class Open extends AbstractCommand {
 	@Override
 	public Response executeImpl(Object aDocument) {
 
+		if (!this.validate()) {
+			return new FailedResponse("Input doesnt match validation pattern.");
+		}
+		
 		PdfDriver driver = (PdfDriver)aDocument;
 		
 		if (driver.isLoaded()) {
