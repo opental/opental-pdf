@@ -9,7 +9,9 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyNumberOfPages", hintValue = "<int>")
+@Keyword(module = PdfTestAdaptionPlugin.ID, 
+         command = "verifyNumberOfPages", 
+         hintValue = "<int>")
 public class Verifynumberofpages extends AbstractCommand {
 
 	public Verifynumberofpages(String aCommand, String aTarget, String aValue) {

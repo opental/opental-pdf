@@ -8,11 +8,15 @@ import java.util.Date;
 import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
+import org.vebqa.vebtal.model.FailedResponse;
+import org.vebqa.vebtal.model.PassedResponse;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyCreationDate", hintTarget = "<yyyy-MM-dd-HH-mm-ss>")
+@Keyword(module = PdfTestAdaptionPlugin.ID, 
+         command = "verifyCreationDate", 
+         hintValue = "<yyyy-MM-dd-HH-mm-ss>")
 public class Verifycreationdate extends AbstractCommand {
 
 	public Verifycreationdate(String aCommand, String aTarget, String aValue) {
@@ -24,12 +28,12 @@ public class Verifycreationdate extends AbstractCommand {
 	public Response executeImpl(Object aDocument) {
 		PdfDriver driver = (PdfDriver)aDocument;
 
-		Response tResp = new Response();
+		if (!driver.isLoaded()) {
+			return new FailedResponse("No document loaded.");
+		}
 
 		if (driver.getCreationDate() == null) {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Document does not have a creation date. Attribute is null!");
-			return tResp;
+			return new FailedResponse("Document does not have a creation date. Attribute is null!");
 		}
 		
 		Calendar created = driver.getCreationDate();
@@ -37,22 +41,16 @@ public class Verifycreationdate extends AbstractCommand {
 	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 	    Date date = null; 
 	    try {
-			date = sdf.parse(this.target);
+			date = sdf.parse(this.value);
 		} catch (ParseException e) {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Cannot parse data: " + this.target);
-			return tResp;
+			return new FailedResponse("Cannot parse data: " + this.value);
 		}
 	    Calendar cal = Calendar.getInstance();
 	    cal.setTime(date);
 	    
-		if (created.compareTo(cal) == 0) {
-			tResp.setCode(Response.PASSED);
-			tResp.setMessage("Creation Date successfully matched!");
-		} else {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Expected creation date: <" + this.target + ">, but found: <" + sdf.format(created.getTime()) + ">");
+		if (created.compareTo(cal) != 0) {
+			return new FailedResponse("Expected creation date: <" + this.value + ">, but found: <" + sdf.format(created.getTime()) + ">");
 		}
-		return tResp;
+		return new PassedResponse("Creation Date successfully matched!");
 	}
 }

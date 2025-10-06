@@ -21,11 +21,16 @@ import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
+import org.vebqa.vebtal.model.FailedResponse;
+import org.vebqa.vebtal.model.PassedResponse;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "extractImages", hintTarget = "page=")
+@Keyword(module = PdfTestAdaptionPlugin.ID, 
+         command = "extractImages", 
+         hintTarget = "page=number",
+         hintValue = "<path>")
 public class Extractimages extends AbstractCommand {
 
 	private static final Logger logger = LoggerFactory.getLogger(Extractimages.class);
@@ -39,8 +44,10 @@ public class Extractimages extends AbstractCommand {
 	public Response executeImpl(Object aDocument) {
 
 		PdfDriver driver = (PdfDriver)aDocument;
-
-		Response tResp = new Response();
+		
+		if (!driver.isLoaded()) {
+			return new FailedResponse("No document loaded.");
+		}
 
 		// resolve target
 		String[] token = target.split("=");
@@ -71,16 +78,13 @@ public class Extractimages extends AbstractCommand {
 					}
 				}
 				if (i == 0) {
-					tResp.setCode(Response.PASSED);
-					tResp.setMessage("No images found in page: "+ pageToExtact);
-					return tResp;
+					return new FailedResponse("No images found in page: "+ pageToExtact);
 				}
 			}
 		} catch (IOException e) {
 			logger.error("Error while stripping text from pdf document!", e);
+			return new FailedResponse("Error while reading document: " + e.getMessage());
 		}
-		tResp.setCode(Response.PASSED);
-		tResp.setMessage("Successfully extracted " + i + " image(s) from page: " + pageToExtact);
-		return tResp;
+		return new PassedResponse("Successfully extracted " + i + " image(s) from page: " + pageToExtact);
 	}
 }

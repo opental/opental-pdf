@@ -5,6 +5,8 @@ import java.io.IOException;
 import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
+import org.vebqa.vebtal.model.FailedResponse;
+import org.vebqa.vebtal.model.PassedResponse;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
@@ -18,27 +20,24 @@ public class Showformfields extends AbstractCommand {
 	}
 
 	@Override
-	public Response executeImpl(Object driver) {
-		PdfDriver pdfDriver = (PdfDriver) driver;
+	public Response executeImpl(Object aDocument) {
+		PdfDriver driver = (PdfDriver) aDocument;
 
-		Response tResp = new Response();
+		if (!driver.isLoaded()) {
+			return new FailedResponse("No document loaded.");
+		}
 
 		String output = "";
 		try {
-			output = pdfDriver.getFieldsInformation(pdfDriver.getDocument());
+			output = driver.getFieldsInformation(driver.getDocument());
 		} catch (IOException e) {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage(e.getMessage());
+			return new FailedResponse("Could not get field information: " + e.getMessage());
 		}
 
 		if (output == null) {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Document contains no form field(s)");
-		} else {
-			tResp.setCode(Response.PASSED);
-			tResp.setMessage(output);
+            return new FailedResponse("Document contains no form field(s)");
 		}
 		
-		return tResp;
+		return new PassedResponse(output);
 	}
 }

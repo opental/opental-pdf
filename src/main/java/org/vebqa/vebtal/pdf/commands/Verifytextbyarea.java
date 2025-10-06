@@ -15,12 +15,17 @@ import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
+import org.vebqa.vebtal.model.FailedResponse;
+import org.vebqa.vebtal.model.PassedResponse;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.Area;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyTextByArea", hintTarget = "page=;x=;y=;height=;width=", hintValue = "<string>")
+@Keyword(module = PdfTestAdaptionPlugin.ID, 
+         command = "verifyTextByArea", 
+         hintTarget = "page=;x=;y=;height=;width=", 
+         hintValue = "<text>")
 public class Verifytextbyarea extends AbstractCommand {
 
 	private static final Logger logger = LoggerFactory.getLogger(Verifytextbyarea.class);
@@ -30,30 +35,25 @@ public class Verifytextbyarea extends AbstractCommand {
 		this.type = CommandType.ASSERTION;
 	}
 
-	/**
-	 * | command | target | value |
-	 * 
-	 * | verifyTextByArea | x:1;y:1;height:1;width:1 | text |
-	 */
 	@Override
 	public Response executeImpl(Object aDocument) {
 
 		PdfDriver driver = (PdfDriver)aDocument;
-
-		Response tResp = new Response();
+		
+		if (!driver.isLoaded()) {
+			return new FailedResponse("No document loaded.");
+		}
+		
 
 		if (target == null || target.contentEquals("") || value == null || value.contentEquals("")) {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Command needs target and value data to work!");
+			return new FailedResponse("Command needs target and value data to work!");
 		} else {
 			// target to area
 			Area area;
 			try {
 				area = new Area(target);
 			} catch (Exception e) {
-				tResp.setCode(Response.FAILED);
-				tResp.setMessage("Could not create area definition!");
-				return tResp;
+				return new FailedResponse("Could not create area definition!");
 			}
 
 			String areaText = null;
@@ -75,29 +75,22 @@ public class Verifytextbyarea extends AbstractCommand {
 				areaText = textStripper.getTextForRegion("test");
 				logger.info("Extracted text from area: {}", areaText);
 			} catch (IOException e) {
-				tResp.setCode(Response.FAILED);
-				tResp.setMessage("Cannot handle pdf source: " + e.getMessage());
-				return tResp;
+				return new FailedResponse("Cannot handle pdf source: " + e.getMessage());
 			}
 
 			if (areaText == null) {
-				tResp.setCode(Response.FAILED);
-				tResp.setMessage("Unable to find text in area. Area is empty!");
+				return new FailedResponse("Unable to find text in area. Area is empty!");
 			} else {
 				logger.info("Text found in area: {} ", areaText);
 				logger.info("Search for: {}", this.value);
 				// We need to convert line breaks
 				areaText = areaText.replace("\r\n", "\\r\\n");
 				logger.info("CV Line Breaks: {}", areaText);
-				if (Strings.CS.contains(areaText, this.value)) {
-					tResp.setCode(Response.PASSED);
-					tResp.setMessage("Text found in given area.");
-				} else {
-					tResp.setCode(Response.FAILED);
-					tResp.setMessage("Unable to find text in area! Result is: " + areaText);
+				if (!Strings.CS.contains(areaText, this.value)) {
+					return new FailedResponse("Unable to find text in area! Result is: " + areaText);
 				}
 			}
 		}
-		return tResp;
+		return new PassedResponse("Text found in given area.");
 	}
 }

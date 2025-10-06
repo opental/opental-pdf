@@ -17,11 +17,16 @@ import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
+import org.vebqa.vebtal.model.FailedResponse;
+import org.vebqa.vebtal.model.PassedResponse;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "capturePageScreenshot", hintTarget = "page=", hintValue = "path/to/screenshot.png")
+@Keyword(module = PdfTestAdaptionPlugin.ID, 
+         command = "capturePageScreenshot", 
+         hintTarget = "page=", 
+         hintValue = "<path/to/screenshot.png>")
 public class Capturepagescreenshot extends AbstractCommand {
 
 	private static final Logger logger = LoggerFactory.getLogger(Capturepagescreenshot.class);
@@ -36,12 +41,14 @@ public class Capturepagescreenshot extends AbstractCommand {
 
 		PdfDriver driver = (PdfDriver)aDocument;
 
+		if (!driver.isLoaded()) {
+			return new FailedResponse("No document loaded.");
+		}
+		
 		String[] token = target.split("=");
 		int page = Integer.parseInt(token[1]);
 		// page tree starts at 0!
 		page--;
-
-		Response tResp = new Response();
 
 		try (InputStream inputStream = new ByteArrayInputStream(driver.getContentStream());) {
 			PDDocument pdf = Loader.loadPDF(new RandomAccessReadBuffer(inputStream));
@@ -51,19 +58,12 @@ public class Capturepagescreenshot extends AbstractCommand {
 			pdf.close();
 		} catch (InvalidPasswordException e) {
 			logger.error("Password needed to load file!", e);
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Password needed to load file: " + value);
-			return tResp;
+			return new FailedResponse("Password needed to load file.");
 		} catch (IOException e) {
 			logger.error("Error while saving pdf page as image!", e);
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Could not write Image to file: " + value);
-			return tResp;
+			return new FailedResponse("Could not write Image to file: " + value);
 		}
 
-		tResp.setCode(Response.PASSED);
-		tResp.setMessage("Successfully written data to file: " + value);
-
-		return tResp;
+		return new PassedResponse("Successfully written data to file: " + value);
 	}
 }

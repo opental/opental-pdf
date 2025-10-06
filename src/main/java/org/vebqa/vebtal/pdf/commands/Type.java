@@ -3,11 +3,16 @@ package org.vebqa.vebtal.pdf.commands;
 import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
+import org.vebqa.vebtal.model.FailedResponse;
+import org.vebqa.vebtal.model.PassedResponse;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "type", hintTarget = "name=<partial name>", hintValue = "<value>")
+@Keyword(module = PdfTestAdaptionPlugin.ID, 
+         command = "type", 
+         hintTarget = "name=<partial name>", 
+         hintValue = "<value>")
 public class Type extends AbstractCommand {
 	
 	public Type(String aCommand, String aTarget, String aValue) {
@@ -16,10 +21,12 @@ public class Type extends AbstractCommand {
 	}
 
 	@Override
-	public Response executeImpl(Object driver) {
-		PdfDriver pdfDriver = (PdfDriver)driver;
+	public Response executeImpl(Object aDocument) {
+		PdfDriver driver = (PdfDriver)aDocument;
 
-		Response tResp = new Response();
+		if (!driver.isLoaded()) {
+			return new FailedResponse("No document loaded.");
+		}
 		
 		String name = "";
 		
@@ -35,15 +42,11 @@ public class Type extends AbstractCommand {
 			}
 		}		
 		
-		boolean result = pdfDriver.setValueByFieldName(name, this.value);
-		if (result) {
-			tResp.setCode(Response.PASSED);
-			tResp.setMessage("value: " + this.value + " written to field");
-		} else {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("cannot write to field");
+		boolean result = driver.setValueByFieldName(name, this.value);
+		if (!result) {
+			return new FailedResponse("cannot write to field");
 		}
 		
-		return tResp;
+		return new PassedResponse("value: " + this.value + " written to field");
 	}
 }
