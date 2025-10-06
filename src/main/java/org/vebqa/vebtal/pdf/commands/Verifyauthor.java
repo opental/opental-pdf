@@ -3,11 +3,13 @@ package org.vebqa.vebtal.pdf.commands;
 import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
+import org.vebqa.vebtal.model.FailedResponse;
+import org.vebqa.vebtal.model.PassedResponse;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyAuthor", hintTarget = "<string>")
+@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyAuthor", hintValue = "<string>")
 public class Verifyauthor extends AbstractCommand {
 
 	public Verifyauthor(String aCommand, String aTarget, String aValue) {
@@ -19,21 +21,22 @@ public class Verifyauthor extends AbstractCommand {
 	public Response executeImpl(Object aDocument) {
 		PdfDriver driver = (PdfDriver) aDocument;
 
-		Response tResp = new Response();
-
+		if (!driver.isLoaded()) {
+			return new FailedResponse("No document loaded.");
+		}
+		
 		if (driver.getAuthor() == null) {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Document does not have author name. Attribute is null!");
-			return tResp;
+			return new FailedResponse("Document does not have author name. Attribute is null!");
+		}
+		
+		if (this.value.isEmpty()) {
+			return new FailedResponse("No expected author given.");
 		}
 
-		if (driver.getAuthor().contains(target)) {
-			tResp.setCode(Response.PASSED);
-			tResp.setMessage("Successfully found author: " + target);
-		} else {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Expected author: \"" + target + "\", but found: \"" + driver.getAuthor() + "\"");
+		if (!driver.getAuthor().contains(this.value)) {
+			return new FailedResponse("Expected author: \"" + this.value + "\", but found: \"" + driver.getAuthor() + "\"");
 		}
-		return tResp;
+
+		return new PassedResponse("Author successfully found.");
 	}
 }
