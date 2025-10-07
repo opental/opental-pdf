@@ -25,7 +25,7 @@ import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
 @Keyword(module = PdfTestAdaptionPlugin.ID, 
          command = "capturePageScreenshot", 
-         hintTarget = "page=", 
+         hintTarget = "page=<number>", 
          hintValue = "<path/to/screenshot.png>")
 public class Capturepagescreenshot extends AbstractCommand {
 

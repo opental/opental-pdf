@@ -8,7 +8,9 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyFieldEmpty", hintTarget = "name=<partial name>")
+@Keyword(module = PdfTestAdaptionPlugin.ID, 
+         command = "verifyFieldEmpty", 
+         hintTarget = "name=<partial name>")
 public class Verifyfieldempty extends AbstractCommand {
 	
 	public Verifyfieldempty(String aCommand, String aTarget, String aValue) {

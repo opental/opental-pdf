@@ -112,10 +112,15 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 					addCommand.setBackground(
 							new Background(new BackgroundFill(Color.ORANGERED, CornerRadii.EMPTY, Insets.EMPTY)));
 					addButton.setDisable(true);
+					addTarget.setDisable(false);
+					addValue.setDisable(false);
 				} else {
 					addCommand.setBackground(
 							new Background(new BackgroundFill(Color.GREENYELLOW, CornerRadii.EMPTY, Insets.EMPTY)));
 					addButton.setDisable(false);
+					
+					addTarget.setDisable(!KeywordFinder.getinstance().isTargetEnabled(getAdaptionID(), addCommand.getText()));
+					addValue.setDisable(!KeywordFinder.getinstance().isValueEnabled(getAdaptionID(), addCommand.getText()));
 				}
 			}
 

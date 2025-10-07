@@ -8,7 +8,9 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyFieldScript", hintTarget = "name=<partial name>;script=CFKV")
+@Keyword(module = PdfTestAdaptionPlugin.ID, 
+         command = "verifyFieldScript", 
+         hintTarget = "name=<partial name>;script=<CFKV>")
 public class Verifyfieldscript extends AbstractCommand {
 	
 	public Verifyfieldscript(String aCommand, String aTarget, String aValue) {

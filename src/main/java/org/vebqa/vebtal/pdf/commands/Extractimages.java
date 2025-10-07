@@ -29,7 +29,7 @@ import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
 @Keyword(module = PdfTestAdaptionPlugin.ID, 
          command = "extractImages", 
-         hintTarget = "page=number",
+         hintTarget = "page=<number>",
          hintValue = "<path>")
 public class Extractimages extends AbstractCommand {
 

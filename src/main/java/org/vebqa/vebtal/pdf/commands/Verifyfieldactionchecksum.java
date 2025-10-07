@@ -9,7 +9,10 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyFieldActionChecksum", hintTarget = "name=<partial name>", hintValue = "<checksum>")
+@Keyword(module = PdfTestAdaptionPlugin.ID, 
+         command = "verifyFieldActionChecksum", 
+         hintTarget = "name=<partial name>", 
+         hintValue = "<checksum>")
 public class Verifyfieldactionchecksum extends AbstractCommand {
 	
 	public Verifyfieldactionchecksum(String aCommand, String aTarget, String aValue) {

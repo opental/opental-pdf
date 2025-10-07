@@ -8,7 +8,10 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "storeFieldAction", hintTarget = "name=<partial name>", hintValue = "<buffer>")
+@Keyword(module = PdfTestAdaptionPlugin.ID, 
+         command = "storeFieldAction", 
+         hintTarget = "name=<partial name>", 
+         hintValue = "<buffer>")
 public class Storefieldaction extends AbstractCommand {
 	
 	public Storefieldaction(String aCommand, String aTarget, String aValue) {

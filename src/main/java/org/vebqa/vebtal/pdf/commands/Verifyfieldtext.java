@@ -8,7 +8,10 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
-@Keyword(module = PdfTestAdaptionPlugin.ID, command = "verifyFieldText", hintTarget = "name=<partial name>", hintValue = "<text>")
+@Keyword(module = PdfTestAdaptionPlugin.ID, 
+         command = "verifyFieldText", 
+         hintTarget = "name=<partial name>", 
+         hintValue = "<text>")
 public class Verifyfieldtext extends AbstractCommand {
 	
 	public Verifyfieldtext(String aCommand, String aTarget, String aValue) {
