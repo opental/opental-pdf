@@ -62,7 +62,7 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 	}
 
 	public String getName() {
-		return "PDF Plugin for VEB Test Adaption Layer";
+		return "PDF Plugin";
 	}
 
 	@Override
@@ -135,6 +135,7 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
         BorderPane pane = (BorderPane)pdfTab.getContent();
 		pane.setTop(hbox);        
 
+		GuiManager.getinstance().writeLog("Successfully started: " + getName());
 		
 		return pdfTab;
 	}
@@ -149,7 +150,7 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 		Platform.runLater(() -> clData.get(clData.size() - 1).setLogInfo(aResult));
 		Platform.runLater(() -> clData.get(clData.size() - 1).setResult(success));
 
-		Platform.runLater(() -> commandList.refresh());
+		Platform.runLater(commandList::refresh);
 		Platform.runLater(() -> commandList.scrollTo(clData.size() - 1));
 	}
 
