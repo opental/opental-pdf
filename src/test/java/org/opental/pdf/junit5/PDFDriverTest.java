@@ -9,10 +9,10 @@ import java.nio.file.NoSuchFileException;
 import org.junit.jupiter.api.Test;
 import org.vebqa.vebtal.pdf.PdfDriver;
 
-public class PDFDriverTest {
+class PDFDriverTest {
 
 	@Test
-	public void loadNonExistingFile() {
+	void loadNonExistingFile() {
 		try {
 			new PdfDriver().setFilePath("./src/test/java/resource/FileNotExisting.pdf").load();
 		} catch (NoSuchFileException nsfe) {
@@ -23,7 +23,7 @@ public class PDFDriverTest {
 	}
 
 	@Test
-	public void loadInvalidFile() {
+	void loadInvalidFile() {
 		try {
 			new PdfDriver().setFilePath("./src/test/resources/InvalidFile.pdf").load();
 		} catch (IOException ioe) {
@@ -34,7 +34,7 @@ public class PDFDriverTest {
 	}
 
 	@Test
-	public void loadFileWithPassword() {
+	void loadFileWithPassword() {
 		try {
 			new PdfDriver().setFilePath("./src/test/resources/ProtectedWithPassword.pdf").load();
 		} catch (IOException ioe) {

@@ -11,7 +11,7 @@ import org.vebqa.vebtal.pdfrestserver.PdfTestAdaptionPlugin;
 
 @Keyword(module = PdfTestAdaptionPlugin.ID, 
          command = "verifyAuthor", 
-         hintValue = "<string>")
+         hintValue = "<text>")
 public class Verifyauthor extends AbstractCommand {
 
 	public Verifyauthor(String aCommand, String aTarget, String aValue) {

@@ -74,7 +74,7 @@ public class Verifyfieldactionchecksum extends AbstractCommand {
 		}
 		
 		String tCheckSum = DigestUtils.sha256Hex(tActionCode);
-		System.out.println(tCheckSum);
+		logger.info(tCheckSum);
 		if (tCheckSum != null && tCheckSum.contains(this.value)) {
 			tResp.setCode(Response.PASSED);
 			tResp.setMessage("Script checksum ok.");

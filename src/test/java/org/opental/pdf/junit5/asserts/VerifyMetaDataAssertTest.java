@@ -12,14 +12,14 @@ import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class VerifyMetaDataAssertTest {
+class VerifyMetaDataAssertTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(VerifyMetaDataAssertTest.class);
 	
 	public final PdfDriver dut_nt = new PdfDriver().setFilePath("./src/test/java/resource/LoremIpsum500.pdf");
 
 	@Test
-	public void checkIfDocumentHasGivenNoOfPages() {
+	void checkIfDocumentHasGivenNoOfPages() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
@@ -30,7 +30,7 @@ public class VerifyMetaDataAssertTest {
 	}
 	
 	@Test
-	public void checkIfDocumentDoesNotHaveGivenNoOfPages() {
+	void checkIfDocumentDoesNotHaveGivenNoOfPages() {
 
 	    AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
@@ -47,7 +47,7 @@ public class VerifyMetaDataAssertTest {
 	}
 	
 	@Test
-	public void checkIfDocumentHasGivenAuthor() {
+	void checkIfDocumentHasGivenAuthor() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
@@ -59,7 +59,7 @@ public class VerifyMetaDataAssertTest {
 	}
 	
 	@Test
-	public void checkIfDocumentDoesNotHaveTheGivenAuthor() {
+	void checkIfDocumentDoesNotHaveTheGivenAuthor() {
 		
 		AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
@@ -76,7 +76,7 @@ public class VerifyMetaDataAssertTest {
 	}
 	
 	@Test
-	public void checkIfDocumentHasGivenCreator() {
+	void checkIfDocumentHasGivenCreator() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
@@ -88,7 +88,7 @@ public class VerifyMetaDataAssertTest {
 	}
 	
 	@Test
-	public void checkIfDocumentDoesNotHaveGivenCreator() {
+	void checkIfDocumentDoesNotHaveGivenCreator() {
 
 		AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
@@ -105,7 +105,7 @@ public class VerifyMetaDataAssertTest {
 	}
 	
 	@Test
-	public void checkIfDocumentHasGivenTitle() {
+	void checkIfDocumentHasGivenTitle() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
@@ -117,7 +117,7 @@ public class VerifyMetaDataAssertTest {
 	}
 	
 	@Test
-	public void checkIfDocumentDoesNotHaveTheGivenTitle() {
+	void checkIfDocumentDoesNotHaveTheGivenTitle() {
 
 		AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
@@ -135,7 +135,7 @@ public class VerifyMetaDataAssertTest {
 	}
 	
 	@Test
-	public void checkIfDocumentHasNoTitle() {
+	void checkIfDocumentHasNoTitle() {
 
 		AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
@@ -152,7 +152,7 @@ public class VerifyMetaDataAssertTest {
 	}
 	
 	@Test
-	public void checkIfDocumentIsNotTrapped() {
+	void checkIfDocumentIsNotTrapped() {
 		
 		AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {

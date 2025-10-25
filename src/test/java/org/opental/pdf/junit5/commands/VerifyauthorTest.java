@@ -11,12 +11,12 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Verifyauthor;
 
-public class VerifyauthorTest {
+class VerifyauthorTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(VerifyauthorTest.class);
 	
 	@Test
-	public void verifyAuthor() {
+	void verifyAuthor() {
 		
 		PdfDriver dut = null;
 		try {
@@ -39,7 +39,7 @@ public class VerifyauthorTest {
 	}
 
 	@Test
-	public void verifyAuthorMismatch() {
+	void verifyAuthorMismatch() {
 		
 		PdfDriver dut = null;
 		try {
@@ -62,7 +62,7 @@ public class VerifyauthorTest {
 	}
 
 	@Test
-	public void verifyAuthorFailWithoutAuthorName() {
+	void verifyAuthorFailWithoutAuthorName() {
 		
 		PdfDriver dut_na = null;
 		try {

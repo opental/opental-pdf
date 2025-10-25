@@ -11,12 +11,12 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Verifytitle;
 
-public class VerifytitleTest {
+class VerifytitleTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(VerifytitleTest.class);
 	
 	@Test
-	public void verifyTitle() {
+	void verifyTitle() {
 		
 		PdfDriver dut = null;
 		try {
@@ -39,7 +39,7 @@ public class VerifytitleTest {
 	}
 	
 	@Test
-	public void verifyTitleFailWithoutTitle() {
+	void verifyTitleFailWithoutTitle() {
 		
 		PdfDriver dut_nt = null;
 		try {
@@ -62,7 +62,7 @@ public class VerifytitleTest {
 	}
 	
 	@Test
-	public void verifyTitleMismatch() {
+	void verifyTitleMismatch() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();

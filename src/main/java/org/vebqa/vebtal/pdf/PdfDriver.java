@@ -47,15 +47,15 @@ public class PdfDriver {
 	private String author;
 	private Calendar creationDate;
 	private String creator;
-	public String keywords;
-	public String producer;
+	String keywords;
+	String producer;
 	private String subject;
 	private String title;
 	private String isTrapped;
-	public boolean encrypted;
-	public boolean signed;
-	public String signerName;
-	public Calendar signatureTime;
+	boolean encrypted;
+	boolean signed;
+	String signerName;
+	Calendar signatureTime;
 
 	public PdfDriver() {
 		this.isSuccessfullyLoaded = false;

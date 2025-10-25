@@ -12,12 +12,12 @@ import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.asserts.VerifyTextByAreaAssert;
 
-public class VerifyTextByAreaAssertTest {
+class VerifyTextByAreaAssertTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(VerifyTextByAreaAssertTest.class);
 
 	@Test
-	public void checkIfEntireTextIsAvailabeInSpecificArea() {
+	void checkIfEntireTextIsAvailabeInSpecificArea() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
@@ -29,7 +29,7 @@ public class VerifyTextByAreaAssertTest {
 	}
 
 	@Test
-	public void checkThatTextFragmentIsAvailabeInSpecificArea() {
+	void checkThatTextFragmentIsAvailabeInSpecificArea() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
@@ -41,7 +41,7 @@ public class VerifyTextByAreaAssertTest {
 	}
 
 	@Test
-	public void failWhileTextIsNotAvailabeInSpecifiedArea() {
+	void failWhileTextIsNotAvailabeInSpecifiedArea() {
 	    AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
 	        		PdfDriver dut = null;
@@ -57,7 +57,7 @@ public class VerifyTextByAreaAssertTest {
 	}
 
 	@Test
-	public void failWhileOnlyTextFragmentIsAvailabeInSpecificArea() {
+	void failWhileOnlyTextFragmentIsAvailabeInSpecificArea() {
 	    AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
 	        		PdfDriver dut = null;

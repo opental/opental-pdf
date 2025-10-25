@@ -83,10 +83,10 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
         addCommand.setPromptText("Command");
         addCommand.setMaxWidth(200);
         final TextField addTarget = new TextField();
-        addTarget.setMaxWidth(350);
+        addTarget.setMaxWidth(400);
         addTarget.setPromptText("Target");
         final TextField addValue = new TextField();
-        addValue.setMaxWidth(350);
+        addValue.setMaxWidth(400);
         addValue.setPromptText("Value");
  
         final Button addButton = new Button("Go");
@@ -105,7 +105,15 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
                 GuiManager.getinstance().setTabStatus(PdfTestAdaptionPlugin.ID, SutStatus.DISCONNECTED);
             }
         });
- 
+
+//        final Button dbgButton = new Button("Debug");
+//        dbgButton.setOnAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent e) {
+//            }
+//        });
+
+        
 		addCommand.focusedProperty().addListener((arg0, oldValue, newValue) -> {
 			if (!newValue) {
 				if (!KeywordFinder.getinstance().isKeywordExisting(getAdaptionID(), addCommand.getText())) {
@@ -121,6 +129,9 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 					
 					addTarget.setDisable(!KeywordFinder.getinstance().isTargetEnabled(getAdaptionID(), addCommand.getText()));
 					addValue.setDisable(!KeywordFinder.getinstance().isValueEnabled(getAdaptionID(), addCommand.getText()));
+
+				    addTarget.setPromptText(KeywordFinder.getinstance().getTargetHint(getAdaptionID(), addCommand.getText()));
+				    addValue.setPromptText(KeywordFinder.getinstance().getValueHint(getAdaptionID(), addCommand.getText()));
 				}
 			}
 

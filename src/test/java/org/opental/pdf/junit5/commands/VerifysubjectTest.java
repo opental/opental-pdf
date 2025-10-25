@@ -11,14 +11,14 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Verifysubject;
 
-public class VerifysubjectTest {
+class VerifysubjectTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(VerifysubjectTest.class);
 
 	// public final PDFDriver dut_ns = new PDFDriver().setFilePath("./src/test/java/resource/LoremIpsum500.pdf");
 
 	@Test
-	public void verifySubject() {
+	void verifySubject() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/SampleFile.pdf").load();
@@ -39,7 +39,7 @@ public class VerifysubjectTest {
 	}
 	
 	@Test
-	public void verifySubjectFailWithoutSubject() {
+	void verifySubjectFailWithoutSubject() {
 		PdfDriver dut_ns = null;
 		try {
 			dut_ns = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum500.pdf").load();
@@ -61,7 +61,7 @@ public class VerifysubjectTest {
 	}
 	
 	@Test
-	public void verifySubjectMismatch() {
+	void verifySubjectMismatch() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/SampleFile.pdf").load();

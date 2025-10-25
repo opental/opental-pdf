@@ -11,12 +11,12 @@ import org.slf4j.LoggerFactory;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.asserts.VerifyTextAssert;
 
-public class VerifyTextAssertTest {
+class VerifyTextAssertTest {
 
-	private final static Logger logger = LoggerFactory.getLogger(VerifyTextAssertTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(VerifyTextAssertTest.class);
 	
 	@Test
-	public void findTextInPdf() {
+	void findTextInPdf() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
@@ -27,7 +27,7 @@ public class VerifyTextAssertTest {
 	}
 
 	@Test
-	public void failFindingTextInPdf() {
+	void failFindingTextInPdf() {
 	    AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
 	        		PdfDriver dut = null;
@@ -43,7 +43,7 @@ public class VerifyTextAssertTest {
 	}
 	
 	@Test
-	public void findTextAtPage_1() {
+	void findTextAtPage_1() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
@@ -55,7 +55,7 @@ public class VerifyTextAssertTest {
 	}
 
 	@Test
-	public void findTextAtPage_2() {
+	void findTextAtPage_2() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
@@ -67,7 +67,7 @@ public class VerifyTextAssertTest {
 	}
 
 	@Test
-	public void findTextAtPage_3() {
+	void findTextAtPage_3() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
@@ -79,7 +79,7 @@ public class VerifyTextAssertTest {
 	}
 
 	@Test
-	public void failFindingTextInPage() {
+	void failFindingTextInPage() {
 	    AssertionError exception =
 	            assertThrows(AssertionError.class, () -> {
 	        		PdfDriver dut = null;

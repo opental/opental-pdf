@@ -22,6 +22,7 @@ public class PdfResource extends AbstractTestAdaptionResource implements TestAda
 	public PdfResource() {
 	}
 
+	@Override
 	public Response execute(Command cmd) {
 
 		// disable user actions
@@ -48,7 +49,7 @@ public class PdfResource extends AbstractTestAdaptionResource implements TestAda
 			setFinished();
 
 		} catch (ClassNotFoundException e) {
-			logger.error("Keyword class {} not found.", e, getCommandClassName(cmd));
+			logger.error("Keyword class {} not found.", getCommandClassName(cmd), e);
 		} catch (NoSuchMethodException e) {
 			logger.error("Execute method in keyword class not found.", e);
 		} catch (SecurityException e) {
@@ -68,7 +69,7 @@ public class PdfResource extends AbstractTestAdaptionResource implements TestAda
 			tResponse.setMessage("Cannot resolve command.");
 			return tResponse;
 		}
-		if (result.getCode() != Response.PASSED) {
+		if (!result.getCode().equals(Response.PASSED)) {
 			PdfTestAdaptionPlugin.setLatestResult(false, result.getMessage());
 		} else {
 			PdfTestAdaptionPlugin.setLatestResult(true, result.getMessage());

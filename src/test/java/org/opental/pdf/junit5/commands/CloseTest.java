@@ -7,12 +7,12 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Close;
 
-public class CloseTest {
+class CloseTest {
 
 	public final PdfDriver dut = new PdfDriver().setFilePath("./src/test/java/resource/LoremIpsum_3Pages.pdf");
 
 	@Test
-	public void closePdfFile() {
+	void closePdfFile() {
 		// create command to test
 		Close cmd = new Close("close", "", "");
 		Response result = cmd.executeImpl(dut);

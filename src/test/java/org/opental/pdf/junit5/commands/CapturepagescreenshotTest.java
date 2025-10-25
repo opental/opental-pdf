@@ -13,12 +13,12 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Capturepagescreenshot;
 
-public class CapturepagescreenshotTest {
+class CapturepagescreenshotTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(CapturepagescreenshotTest.class);
 
 	@Test
-	public void captureScreenshotOfGivenPage(@TempDir Path tempDir) {
+	void captureScreenshotOfGivenPage(@TempDir Path tempDir) {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
@@ -38,7 +38,7 @@ public class CapturepagescreenshotTest {
 	}
 
 	@Test
-	public void captureScreenshotFailWhileSavingImage() {
+	void captureScreenshotFailWhileSavingImage() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();

@@ -11,12 +11,12 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Verifynumberofpages;
 
-public class VerifynumberofpagesTest {
+class VerifynumberofpagesTest {
 	
     private static final Logger logger = LoggerFactory.getLogger(VerifynumberofpagesTest.class);
 	
 	@Test
-	public void verifyNumberOfPages() {
+	void verifyNumberOfPages() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
@@ -37,7 +37,7 @@ public class VerifynumberofpagesTest {
 	}
 	
 	@Test
-	public void verifyNumberOfPagesFailWithMismatch() {
+	void verifyNumberOfPagesFailWithMismatch() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();

@@ -11,12 +11,12 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Verifycreationdate;
 
-public class VerifycreationdateTest {
+class VerifycreationdateTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(VerifycreationdateTest.class);
 	
 	@Test
-	public void verifyCreationDate() {
+	void verifyCreationDate() {
 
 		PdfDriver dut = null;
 		try {
@@ -39,7 +39,7 @@ public class VerifycreationdateTest {
 	}
 
 	@Test
-	public void verifyCreationDateFailWithIncorrectDateFormat() {
+	void verifyCreationDateFailWithIncorrectDateFormat() {
 
 		PdfDriver dut = null;
 		try {
@@ -62,7 +62,7 @@ public class VerifycreationdateTest {
 	}
 
 	@Test
-	public void verifyCreationDateFailWithMismatch() {
+	void verifyCreationDateFailWithMismatch() {
 		
 		PdfDriver dut = null;
 		try {

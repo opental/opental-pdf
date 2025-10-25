@@ -14,7 +14,7 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Extractimages;
 
-public class ExtractimagesTest {
+class ExtractimagesTest {
 
     private static final Logger logger = LoggerFactory.getLogger(ExtractimagesTest.class);
 	
@@ -22,7 +22,7 @@ public class ExtractimagesTest {
 	File file = new File("Z:\\extracted-image-1.png");
 	
 	@Test
-	public void extractImages(@TempDir Path tempDir) {
+	void extractImages(@TempDir Path tempDir) {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/SampleFileWithImage.pdf").load();
@@ -46,7 +46,7 @@ public class ExtractimagesTest {
 	}
 
 	@Test
-	public void extractImagesToSpecificFolder(@TempDir Path tempDir) {
+	void extractImagesToSpecificFolder(@TempDir Path tempDir) {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/SampleFileWithImage.pdf").load();
@@ -71,7 +71,7 @@ public class ExtractimagesTest {
 	}
 
 	@Test
-	public void noImagesToExtract() {
+	void noImagesToExtract() {
 		PdfDriver dut_ni = null;
 		try {
 			dut_ni = new PdfDriver().setFilePath("./src/test/resources/SampleFile.pdf").load();

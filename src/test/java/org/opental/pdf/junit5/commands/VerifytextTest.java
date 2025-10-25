@@ -11,12 +11,12 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Verifytext;
 
-public class VerifytextTest {
+class VerifytextTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(VerifytextTest.class);
 
 	@Test
-	public void verifyTextWithPageNo() {
+	void verifyTextWithPageNo() {
 		
 		PdfDriver dut = null;
 		try {
@@ -39,7 +39,7 @@ public class VerifytextTest {
 	}
 
 	@Test
-	public void verifyTextWithoutPageNo() {
+	void verifyTextWithoutPageNo() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
@@ -61,7 +61,7 @@ public class VerifytextTest {
 	}
 
 	@Test
-	public void verifyTextNotFoundWithPageNo() {
+	void verifyTextNotFoundWithPageNo() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();
@@ -83,7 +83,7 @@ public class VerifytextTest {
 	}
 
 	@Test
-	public void verifyTextNotFoundWithoutPageNo() {
+	void verifyTextNotFoundWithoutPageNo() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/LoremIpsum_3Pages.pdf").load();

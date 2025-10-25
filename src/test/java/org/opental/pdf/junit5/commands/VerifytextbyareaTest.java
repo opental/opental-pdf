@@ -11,12 +11,12 @@ import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.PdfDriver;
 import org.vebqa.vebtal.pdf.commands.Verifytextbyarea;
 
-public class VerifytextbyareaTest {
+class VerifytextbyareaTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(VerifytextbyareaTest.class);
 
 	@Test
-	public void verifyTextByArea() {
+	void verifyTextByArea() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
@@ -38,7 +38,7 @@ public class VerifytextbyareaTest {
 	}
 	
 	@Test
-	public void verifyTextByAreaFailWithMismatch() {
+	void verifyTextByAreaFailWithMismatch() {
 		
 		PdfDriver dut = null;
 		try {
@@ -60,7 +60,7 @@ public class VerifytextbyareaTest {
 	}
 	
 	@Test
-	public void verifyTextByAreaFailWhileValueIsNull() {
+	void verifyTextByAreaFailWhileValueIsNull() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
@@ -82,7 +82,7 @@ public class VerifytextbyareaTest {
 	}
 	
 	@Test
-	public void verifyTextByAreaFailWhileTargetIsNull() {
+	void verifyTextByAreaFailWhileTargetIsNull() {
 		PdfDriver dut = null;
 		try {
 			dut = new PdfDriver().setFilePath("./src/test/resources/Testtext_Area.pdf").load();
