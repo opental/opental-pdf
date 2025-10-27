@@ -29,7 +29,7 @@ public class Verifyfieldactionchecksum extends AbstractCommand {
 		
 		PdfDriver pdfDriver = (PdfDriver)driver;
 
-		Response tResp = new Response();
+		Response tResp;
 		
 		String name = "";
 		String action = "";
@@ -68,19 +68,24 @@ public class Verifyfieldactionchecksum extends AbstractCommand {
 		String tActionCode = pdfDriver.getActionByFieldName(name, action);
 		
 		if (tActionCode == null || tActionCode.contentEquals("")) {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("No script found.");
-			return tResp;
+			return new Response.Builder()
+			    .setCode(Response.FAILED)
+			    .setMessage("No script found.")
+			    .build();
 		}
 		
 		String tCheckSum = DigestUtils.sha256Hex(tActionCode);
 		logger.info(tCheckSum);
 		if (tCheckSum != null && tCheckSum.contains(this.value)) {
-			tResp.setCode(Response.PASSED);
-			tResp.setMessage("Script checksum ok.");
+			tResp = new Response.Builder()
+			            .setCode(Response.PASSED)
+			            .setMessage("Script checksum ok.")
+			            .build();
 		} else {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Expected checksum [" + tCheckSum + "] but is [" + tCheckSum + "]");
+			tResp = new Response.Builder()
+			            .setCode(Response.FAILED)
+			            .setMessage("Expected checksum [" + tCheckSum + "] but is [" + tCheckSum + "]")
+			            .build();
 		}
 		
 		return tResp;

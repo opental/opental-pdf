@@ -27,7 +27,7 @@ public class Verifyfieldscript extends AbstractCommand {
 		
 		PdfDriver pdfDriver = (PdfDriver)driver;
 
-		Response tResp = new Response();
+		Response tResp;
 		
 		String name = "";
 		String action = "";
@@ -64,11 +64,15 @@ public class Verifyfieldscript extends AbstractCommand {
 		
 		boolean hasAction = pdfDriver.hasAdditionalActionByFieldName(name, action);
 		if (hasAction) {
-			tResp.setCode(Response.PASSED);
-			tResp.setMessage("Field has the additional action: " + action);
+			tResp = new Response.Builder()
+			            .setCode(Response.PASSED)
+			            .setMessage("Field has the additional action: " + action)
+			            .build();
 		} else {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Field does not have expected additional action: " + action);
+			tResp = new Response.Builder()
+			            .setCode(Response.FAILED)
+			            .setMessage("Field does not have expected additional action: " + action)
+			            .build();
 		}
 		
 		return tResp;

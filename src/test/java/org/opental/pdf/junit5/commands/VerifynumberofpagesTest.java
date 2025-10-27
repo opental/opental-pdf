@@ -28,9 +28,10 @@ class VerifynumberofpagesTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Document has expected number of pages: 3");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.PASSED)
+		    .setMessage("Document has expected number of pages: 3")
+		    .build();
 
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
@@ -50,9 +51,10 @@ class VerifynumberofpagesTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Expected number of pages: <1>, but found: <3>");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.FAILED)
+		    .setMessage("Expected number of pages: <1>, but found: <3>")
+		    .build();
 
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);

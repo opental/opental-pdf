@@ -30,9 +30,10 @@ class VerifytextTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Expected text <Marker Page 1> found");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.PASSED)
+		    .setMessage("Expected text <Marker Page 1> found")
+		    .build();
 
 		// check
 		assertThat(result).usingRecursiveComparison().isEqualTo(resultCheck);
@@ -52,9 +53,10 @@ class VerifytextTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Expected text <Marker Page 2> found");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.PASSED)
+		    .setMessage("Expected text <Marker Page 2> found")
+		    .build();
 
 		// check
 		assertThat(result).usingRecursiveComparison().isEqualTo(resultCheck);
@@ -74,9 +76,10 @@ class VerifytextTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Did not find expected text <Marker Page 1>");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.FAILED)
+		    .setMessage("Did not find expected text <Marker Page 1>")
+		    .build();
 
 		// check
 		assertThat(result).usingRecursiveComparison().isEqualTo(resultCheck);
@@ -96,9 +99,10 @@ class VerifytextTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Did not find expected text <You can't find me!>");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.FAILED)
+		    .setMessage("Did not find expected text <You can't find me!>")
+		    .build();
 
 		// check
 		assertThat(result).usingRecursiveComparison().isEqualTo(resultCheck);

@@ -18,9 +18,10 @@ class CloseTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Successfully removes SUT from memory.");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.PASSED)
+		    .setMessage("Successfully removes SUT from memory.")
+		    .build();
 
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);

@@ -30,9 +30,10 @@ class VerifyauthorTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Successfully found author: Dörges, Karsten");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.PASSED)
+		    .setMessage("Successfully found author: Dörges, Karsten")
+		    .build();
 
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
@@ -53,9 +54,10 @@ class VerifyauthorTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Expected author: \"Radjindirin, Nithiyaa\", but found: \"Dörges, Karsten\"");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.FAILED)
+		    .setMessage("Expected author: \"Radjindirin, Nithiyaa\", but found: \"Dörges, Karsten\"")
+		    .build();
 
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
@@ -76,9 +78,10 @@ class VerifyauthorTest {
 		Response result = cmd.executeImpl(dut_na);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Document does not have author name. Attribute is null!");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.FAILED)
+		    .setMessage("Document does not have author name. Attribute is null!")
+		    .build();
 
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);

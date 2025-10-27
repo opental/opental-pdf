@@ -28,7 +28,7 @@ public class Storefieldaction extends AbstractCommand {
 		
 		PdfDriver pdfDriver = (PdfDriver)driver;
 
-		Response tResp = new Response();
+		Response tResp;
 		
 		String name = "";
 		
@@ -46,13 +46,17 @@ public class Storefieldaction extends AbstractCommand {
 		
 		String tValue = pdfDriver.getActionByFieldName(name);
 		if (tValue != null && !tValue.contentEquals("")) {
-			tResp.setCode(Response.PASSED);
-			tResp.setMessage(tValue);
-			tResp.setStoredKey(this.value);
-			tResp.setStoredValue(tValue);
+			tResp = new Response.Builder()
+					.setCode(Response.PASSED)
+			        .setMessage(tValue)
+			        .setStoredKey(this.value)
+			        .setStoredValue(tValue)
+			        .build();
 		} else {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Field has no action");
+			tResp = new Response.Builder()
+			        .setCode(Response.FAILED)
+			        .setMessage("Field has no action")
+			        .build();
 		}
 		
 		return tResp;

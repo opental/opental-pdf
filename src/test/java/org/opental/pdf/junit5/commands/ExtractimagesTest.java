@@ -34,9 +34,10 @@ class ExtractimagesTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Successfully extracted 1 image(s) from page: 1");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.PASSED)
+		    .setMessage("Successfully extracted 1 image(s) from page: 1")
+		    .build();
 
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
@@ -61,9 +62,10 @@ class ExtractimagesTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Successfully extracted 1 image(s) from page: 1");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.PASSED)
+		    .setMessage("Successfully extracted 1 image(s) from page: 1")
+		    .build();
 
 		// check
 		assertThat(new File(directory, "extracted-image-1.png").exists());
@@ -83,9 +85,10 @@ class ExtractimagesTest {
 		Response result = cmd.executeImpl(dut_ni);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("No images found in page: 1");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.PASSED)
+		    .setMessage("No images found in page: 1")
+		    .build();
 
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);

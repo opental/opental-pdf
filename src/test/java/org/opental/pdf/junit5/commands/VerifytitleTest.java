@@ -30,9 +30,10 @@ class VerifytitleTest {
 		Response result = cmd.executeImpl(dut);
 		
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Successfully found title: Test Title");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.PASSED)
+		    .setMessage("Successfully found title: Test Title")
+		    .build();
 		
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
@@ -53,9 +54,10 @@ class VerifytitleTest {
 		Response result = cmd.executeImpl(dut_nt);
 		
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Document does not have a title. Attribute is null!");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.FAILED)
+		    .setMessage("Document does not have a title. Attribute is null!")
+		    .build();
 		
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
@@ -75,9 +77,10 @@ class VerifytitleTest {
 		Response result = cmd.executeImpl(dut);
 		
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Expected title was <Uhm> but found <Test Title>.");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.FAILED)
+		    .setMessage("Expected title was <Uhm> but found <Test Title>.")
+		    .build();
 		
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);

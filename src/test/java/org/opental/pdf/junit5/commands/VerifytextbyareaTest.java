@@ -29,9 +29,10 @@ class VerifytextbyareaTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Text found in given area.");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.PASSED)
+		    .setMessage("Text found in given area.")
+		    .build();
 
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
@@ -51,9 +52,10 @@ class VerifytextbyareaTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Unable to find text in area! Result is: This\\r\\n");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.FAILED)
+		    .setMessage("Unable to find text in area! Result is: This\\r\\n")
+		    .build();
 
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
@@ -73,9 +75,10 @@ class VerifytextbyareaTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Command needs target and value data to work!");
+		Response resultCheck = new Response.Builder()
+	        .setCode(Response.FAILED)
+		    .setMessage("Command needs target and value data to work!")
+		    .build();
 
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
@@ -95,9 +98,10 @@ class VerifytextbyareaTest {
 		Response result = cmd.executeImpl(dut);
 
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Command needs target and value data to work!");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.FAILED)
+		    .setMessage("Command needs target and value data to work!")
+		    .build();
 
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);

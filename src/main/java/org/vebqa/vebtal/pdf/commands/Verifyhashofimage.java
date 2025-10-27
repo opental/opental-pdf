@@ -3,6 +3,7 @@ package org.vebqa.vebtal.pdf.commands;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.math.BigInteger;
 
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.cos.COSName;
@@ -54,14 +55,28 @@ public class Verifyhashofimage extends AbstractCommand {
 			return new FailedResponse("No document loaded.");
 		}
 
-		// resolve target
-		String[] token = target.split("=");
-		// token[0] ist "page"
-		// token[1] ist int>page
-		int pageToExtact = Integer.parseInt(token[1]);
-
+		// resolve target and split equations
+		int pageToExtract = 0;
+		String nameOfImage = "";
+		String[] equations = target.split(";");
+		for (String equation : equations) {
+			String[] token = equation.split("=");
+		    // token[0] ist "page"
+		    // token[1] ist int>page
+		    switch(token[0]) {
+		        case "page": 
+		        	pageToExtract = Integer.parseInt(token[1]);
+		        	break;
+		        case "name":
+		        	nameOfImage = token[1];
+		        	break;
+		        default:
+		        	break;
+		    }
+		}
 		// count found images
 		int i = 0;
+		BigInteger imageHash = null;
 		try {
 			InputStream inputStream = new ByteArrayInputStream(
 					driver.getContentStream());
@@ -71,15 +86,16 @@ public class Verifyhashofimage extends AbstractCommand {
 			for (PDPage page : list) {
 				pageCount++;
 				PDResources pdResources = page.getResources();
-				if (pageCount == pageToExtact) {
+				if (pageCount == pageToExtract) {
 					for (COSName name : pdResources.getXObjectNames()) {
 						PDXObject o = pdResources.getXObject(name);
-						if (o instanceof PDImageXObject) {
+						if (o instanceof PDImageXObject && name.getName().contentEquals(nameOfImage)) {
 							i++;
 							PDImageXObject image = (PDImageXObject) o;
 							HashingAlgorithm hasher = new PerceptiveHash(32);
 							Hash hashImg = hasher.hash(image.getImage());
-							logger.info("hash for: {} -> {}", name.getName(), hashImg.getHashValue());
+							imageHash = hashImg.getHashValue();
+							logger.info("hash for: {} -> {}", name.getName(), hashImg.getHashValue());		
 						}
 					}
 				}
@@ -88,10 +104,10 @@ public class Verifyhashofimage extends AbstractCommand {
 			logger.error("Error while stripping text from pdf document!", e);
 			return new FailedResponse("Error while reading document: " + e.getMessage());
 		}
-		if (i != Integer.valueOf(this.value)) {
-			return new FailedResponse("Image count should be: "+ this.value + " but was: " + i);
+		if (imageHash.compareTo(BigInteger.valueOf(Long.parseLong(this.value))) != 0) {
+			return new FailedResponse("Image hash should be: "+ this.value + " but was: " + imageHash);
 		}
 
-		return new PassedResponse("Number of images matches the expected number: " + this.value);
+		return new PassedResponse("Images hash matches the given hash: " + this.value);
 	}
 }

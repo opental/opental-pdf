@@ -97,7 +97,9 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
             	
                 addCommand.clear();
                 addTarget.clear();
+                addTarget.setPromptText("");
                 addValue.clear();
+                addValue.setPromptText("");
                 
                 PdfResource aResource = new PdfResource();
                 GuiManager.getinstance().setTabStatus(PdfTestAdaptionPlugin.ID, SutStatus.CONNECTED);
@@ -115,7 +117,7 @@ public class PdfTestAdaptionPlugin extends AbstractTestAdaptionPlugin {
 
         
 		addCommand.focusedProperty().addListener((arg0, oldValue, newValue) -> {
-			if (!newValue) {
+			if (!newValue && !addCommand.getText().isEmpty()) {
 				if (!KeywordFinder.getinstance().isKeywordExisting(getAdaptionID(), addCommand.getText())) {
 					addCommand.setBackground(
 							new Background(new BackgroundFill(Color.ORANGERED, CornerRadii.EMPTY, Insets.EMPTY)));

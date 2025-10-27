@@ -30,9 +30,10 @@ class CapturepagescreenshotTest {
 		Capturepagescreenshot cmd = new Capturepagescreenshot("capturePageScreenshot", "page=2", file.toString());
 		Response result = cmd.executeImpl(dut);
 
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Successfully written data to file: " + file.toString());
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.PASSED)
+		    .setMessage("Successfully written data to file: " + file.toString())
+		    .build();
 
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
 	}
@@ -50,9 +51,10 @@ class CapturepagescreenshotTest {
 				"C:\\Users\\noSuchUser\\screenshot.png");
 		Response result = cmd.executeImpl(dut);
 
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Could not write Image to file: C:\\Users\\noSuchUser\\screenshot.png");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.FAILED)
+		    .setMessage("Could not write Image to file: C:\\Users\\noSuchUser\\screenshot.png")
+		    .build();
 
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
 	}

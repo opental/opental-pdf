@@ -28,7 +28,7 @@ public class Verifyfieldtext extends AbstractCommand {
 		
 		PdfDriver pdfDriver = (PdfDriver)driver;
 
-		Response tResp = new Response();
+		Response tResp;
 		
 		String name = "";
 		
@@ -46,16 +46,21 @@ public class Verifyfieldtext extends AbstractCommand {
 		
 		String tValue = pdfDriver.getValueByFieldName(name);
 		if (tValue == null)  {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Field " + name + " not found");
-			return tResp;
+			return new Response.Builder()
+			    .setCode(Response.FAILED)
+			    .setMessage("Field " + name + " not found")
+			    .build();
 		}
 		if (tValue != null && tValue.contentEquals(this.value)) {
-			tResp.setCode(Response.PASSED);
-			tResp.setMessage("value of field matches given text: " + this.value);
+			tResp = new Response.Builder()
+			    .setCode(Response.PASSED)
+			    .setMessage("value of field matches given text: " + this.value)
+			    .build();
 		} else {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Field should be " + this.value + ", but is: " + tValue);
+			tResp = new Response.Builder()
+			    .setCode(Response.FAILED)
+			    .setMessage("Field should be " + this.value + ", but is: " + tValue)
+			    .build();
 		}
 		
 		return tResp;

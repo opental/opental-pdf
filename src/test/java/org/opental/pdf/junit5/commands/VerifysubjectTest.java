@@ -30,9 +30,10 @@ class VerifysubjectTest {
 		Response result = cmd.executeImpl(dut);
 		
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.PASSED);
-		resultCheck.setMessage("Successfully found subject: Test Document");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.PASSED)
+		    .setMessage("Successfully found subject: Test Document")
+		    .build();
 		
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
@@ -52,9 +53,10 @@ class VerifysubjectTest {
 		Response result = cmd.executeImpl(dut_ns);
 		
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Document does not have a title. Attribute is null!");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.FAILED)
+		    .setMessage("Document does not have a title. Attribute is null!")
+		    .build();
 		
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);
@@ -74,9 +76,10 @@ class VerifysubjectTest {
 		Response result = cmd.executeImpl(dut);
 		
 		// create a green result object
-		Response resultCheck = new Response();
-		resultCheck.setCode(Response.FAILED);
-		resultCheck.setMessage("Expected subject: \"Testing\", but found: \"Test Document\"");
+		Response resultCheck = new Response.Builder()
+		    .setCode(Response.FAILED)
+		    .setMessage("Expected subject: \"Testing\", but found: \"Test Document\"")
+		    .build();
 		
 		// check
 		assertThat(resultCheck).usingRecursiveComparison().isEqualTo(result);

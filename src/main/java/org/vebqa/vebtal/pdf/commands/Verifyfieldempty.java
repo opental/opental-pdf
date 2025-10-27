@@ -27,7 +27,7 @@ public class Verifyfieldempty extends AbstractCommand {
 		
 		PdfDriver pdfDriver = (PdfDriver)driver;
 
-		Response tResp = new Response();
+		Response tResp;
 		
 		String name = "";
 		
@@ -45,14 +45,17 @@ public class Verifyfieldempty extends AbstractCommand {
 		
 		String value = pdfDriver.getValueByFieldName(name);
 		if (value == null || value.contentEquals("")) {
-			tResp.setCode(Response.PASSED);
-			tResp.setMessage("value of field is empty");
+			tResp = new Response.Builder()
+			            .setCode(Response.PASSED)
+			            .setMessage("value of field is empty")
+			            .build();
 		} else {
-			tResp.setCode(Response.FAILED);
-			tResp.setMessage("Field should be empty, but is: " + value);
+			tResp = new Response.Builder()
+			            .setCode(Response.FAILED)
+			            .setMessage("Field should be empty, but is: " + value)
+			            .build();
 		}
 		
 		return tResp;
 	}
-
 }

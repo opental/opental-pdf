@@ -28,7 +28,7 @@ public class PdfResource extends AbstractTestAdaptionResource implements TestAda
 		// disable user actions
 		PdfTestAdaptionPlugin.setDisableUserActions(true);
 
-		Response tResponse = new Response();
+		Response tResponse;
 
 		Response result = null;
 		try {
@@ -65,8 +65,10 @@ public class PdfResource extends AbstractTestAdaptionResource implements TestAda
 		}
 
 		if (result == null) {
-			tResponse.setCode(Response.FAILED);
-			tResponse.setMessage("Cannot resolve command.");
+			tResponse = new Response.Builder()
+			    .setCode(Response.FAILED)
+			    .setMessage("Cannot resolve command.")
+			    .build();
 			return tResponse;
 		}
 		if (!result.getCode().equals(Response.PASSED)) {
