@@ -15,7 +15,6 @@ import org.vebqa.vebtal.annotations.Keyword;
 import org.vebqa.vebtal.command.AbstractCommand;
 import org.vebqa.vebtal.model.CommandType;
 import org.vebqa.vebtal.model.FailedResponse;
-import org.vebqa.vebtal.model.PassedResponse;
 import org.vebqa.vebtal.model.Response;
 import org.vebqa.vebtal.pdf.Area;
 import org.vebqa.vebtal.pdf.PdfDriver;
@@ -48,6 +47,8 @@ public class Storetextbyarea extends AbstractCommand {
 		}
 		
 
+		String areaText = "";
+		
 		if (target == null || target.contentEquals("") || value == null || value.contentEquals("")) {
 			return new FailedResponse("Command needs target and value data to work!");
 		} else {
@@ -58,8 +59,6 @@ public class Storetextbyarea extends AbstractCommand {
 			} catch (Exception e) {
 				return new FailedResponse("Could not create area definition!");
 			}
-
-			String areaText = null;
 
 			try {
 				PDFTextStripperByArea textStripper = new PDFTextStripperByArea();
@@ -85,6 +84,12 @@ public class Storetextbyarea extends AbstractCommand {
 				return new FailedResponse("Unable to find text in area. Area is empty!");
 			}
 		}
-		return new PassedResponse("Text found in given area.");
+		
+		return new Response.Builder()
+				.setCode(Response.PASSED)
+				.setMessage("Text found: " + areaText)
+				.setStoredKey(value)
+				.setStoredValue(areaText)
+				.build();
 	}
 }

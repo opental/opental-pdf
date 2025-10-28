@@ -74,8 +74,7 @@ public class Verifyhashofimage extends AbstractCommand {
 		        	break;
 		    }
 		}
-		// count found images
-		int i = 0;
+
 		BigInteger imageHash = null;
 		try {
 			InputStream inputStream = new ByteArrayInputStream(
@@ -90,7 +89,6 @@ public class Verifyhashofimage extends AbstractCommand {
 					for (COSName name : pdResources.getXObjectNames()) {
 						PDXObject o = pdResources.getXObject(name);
 						if (o instanceof PDImageXObject && name.getName().contentEquals(nameOfImage)) {
-							i++;
 							PDImageXObject image = (PDImageXObject) o;
 							HashingAlgorithm hasher = new PerceptiveHash(32);
 							Hash hashImg = hasher.hash(image.getImage());
