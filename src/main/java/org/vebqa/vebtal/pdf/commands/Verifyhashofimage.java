@@ -102,6 +102,9 @@ public class Verifyhashofimage extends AbstractCommand {
 			logger.error("Error while stripping text from pdf document!", e);
 			return new FailedResponse("Error while reading document: " + e.getMessage());
 		}
+		if (imageHash == null) {
+			return new FailedResponse("Could not compute image hash");
+		}
 		if (imageHash.compareTo(BigInteger.valueOf(Long.parseLong(this.value))) != 0) {
 			return new FailedResponse("Image hash should be: "+ this.value + " but was: " + imageHash);
 		}

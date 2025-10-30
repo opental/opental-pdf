@@ -2,6 +2,7 @@ package org.vebqa.vebtal.pdf;
 
 import java.awt.geom.Rectangle2D;
 
+import org.opental.core.exception.InvalidSpecificationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,7 +16,7 @@ public class Area {
 	private int height = 0;
 	private int width = 0;
 
-	public Area(String aSpecLine) throws Exception {
+	public Area(String aSpecLine) throws InvalidSpecificationException {
 		parseSpecLine(aSpecLine);
 	}
 
@@ -27,14 +28,14 @@ public class Area {
 		width = awidth;
 	}
 
-	private void parseSpecLine(String aSpecLine) throws Exception {
+	private void parseSpecLine(String aSpecLine) throws InvalidSpecificationException {
 		boolean invalidArea = false;
 		String[] someFragments = aSpecLine.split(";");
 		for (String aFragment : someFragments) {
 			aFragment = aFragment.trim().toLowerCase();
 			String[] someToken = aFragment.split("=");
 			if (someToken[0] == null || someToken[1] == null) {
-				throw new Exception("Invalid Arguments!");
+				throw new InvalidSpecificationException("Invalid Arguments!");
 			}
 			switch (someToken[0]) {
 			case "x":
@@ -58,7 +59,7 @@ public class Area {
 			}
 		}
 		if (invalidArea) {
-			throw new Exception("Invalid area data!");
+			throw new InvalidSpecificationException("Invalid area data!");
 		}
 		logger.info("Area created: {},{} - {},{} on page {}", x, y, height, width, page);
 	}

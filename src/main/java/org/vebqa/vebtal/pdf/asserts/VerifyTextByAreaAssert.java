@@ -7,6 +7,7 @@ import org.apache.pdfbox.text.PDFTextStripperByArea;
 import org.assertj.core.api.AbstractAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.vebqa.vebtal.model.FailedResponse;
 import org.vebqa.vebtal.pdf.Area;
 import org.vebqa.vebtal.pdf.PdfDriver;
 
@@ -128,6 +129,9 @@ public class VerifyTextByAreaAssert extends AbstractAssert<VerifyTextByAreaAsser
 			failWithMessage("Cannot extract text from area!");
 		}
 
+		if (areaText == null) {
+			new FailedResponse("Could not extract test from document.");
+		}
 		if (!areaText.contains(this.text)) {
 			failWithMessage("Expected text <%s> is not availabe in the located area. Instead found: <%s>", this.text,
 					areaText);
