@@ -1,10 +1,10 @@
 package org.opental.pdf.junit5.asserts;
 
 import org.junit.jupiter.api.Test;
+import org.opental.pdf.PdfDriver;
+import org.opental.pdf.asserts.VerifyMetaDataAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vebqa.vebtal.pdf.PdfDriver;
-import org.vebqa.vebtal.pdf.asserts.VerifyMetaDataAssert;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 

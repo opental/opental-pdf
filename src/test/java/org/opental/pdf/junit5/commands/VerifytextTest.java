@@ -5,11 +5,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
+import org.opental.core.model.Response;
+import org.opental.pdf.PdfDriver;
+import org.opental.pdf.commands.Verifytext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.PdfDriver;
-import org.vebqa.vebtal.pdf.commands.Verifytext;
 
 class VerifytextTest {
 

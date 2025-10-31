@@ -3,9 +3,9 @@ package org.opental.pdf.junit5.commands;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.PdfDriver;
-import org.vebqa.vebtal.pdf.commands.Close;
+import org.opental.core.model.Response;
+import org.opental.pdf.PdfDriver;
+import org.opental.pdf.commands.Close;
 
 class CloseTest {
 

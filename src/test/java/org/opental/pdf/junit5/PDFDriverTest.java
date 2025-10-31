@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 
 import org.junit.jupiter.api.Test;
-import org.vebqa.vebtal.pdf.PdfDriver;
+import org.opental.pdf.PdfDriver;
 
 class PDFDriverTest {
 

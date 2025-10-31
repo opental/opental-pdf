@@ -8,11 +8,11 @@ import java.nio.file.Path;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.opental.core.model.Response;
+import org.opental.pdf.PdfDriver;
+import org.opental.pdf.commands.Extractimages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vebqa.vebtal.model.Response;
-import org.vebqa.vebtal.pdf.PdfDriver;
-import org.vebqa.vebtal.pdf.commands.Extractimages;
 
 class ExtractimagesTest {
 

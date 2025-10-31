@@ -7,10 +7,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.io.IOException;
 
 import org.junit.jupiter.api.Test;
+import org.opental.pdf.PdfDriver;
+import org.opental.pdf.asserts.VerifyTextByAreaAssert;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.vebqa.vebtal.pdf.PdfDriver;
-import org.vebqa.vebtal.pdf.asserts.VerifyTextByAreaAssert;
 
 class VerifyTextByAreaAssertTest {
 	
