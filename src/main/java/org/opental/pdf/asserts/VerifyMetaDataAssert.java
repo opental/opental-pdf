@@ -52,6 +52,10 @@ public class VerifyMetaDataAssert extends AbstractAssert<VerifyMetaDataAssert, P
     	// check that we really have a pdf filename defined.
     	isNotNull();
 
+    	if (this.actual.getAuthor() == null) {
+    		failWithMessage("Expected author is <%s> but was <null>", anAuthor);
+    	}
+    	
 		if (!this.actual.getAuthor().contentEquals(anAuthor)) {
 			failWithMessage("Expected author is <%s> but was <%s>", anAuthor, this.actual.getAuthor());
 		}
