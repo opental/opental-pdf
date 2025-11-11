@@ -18,7 +18,19 @@ public class Verifynumberofpages extends AbstractCommand {
 		super(aCommand, aTarget, aValue);
 		this.type = CommandType.ASSERTION;
 	}
+	
+	public Verifynumberofpages() {
+		super();
+	}
+	
+	public void setExpectedPages(int expPages) {
+		this.value = String.valueOf(expPages);
+	}
 
+	public void check(Object aDocument) {
+		executeImpl(aDocument);
+	}
+	
 	@Override
 	public Response executeImpl(Object aDocument) {
 
